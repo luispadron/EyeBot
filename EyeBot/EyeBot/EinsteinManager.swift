@@ -8,3 +8,11 @@
 
 import Foundation
 import Alamofire
+
+class EinsteinManager {
+    public static let shared = EinsteinManager()
+    
+    public func predictImage(forUrl url: URL) {
+        
+    }
+}

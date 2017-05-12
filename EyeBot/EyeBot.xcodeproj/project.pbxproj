@@ -134,7 +134,7 @@
 				TargetAttributes = {
 					A0E23F411EC5F071003F5844 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = 4FNMZ7SN42;
+						DevelopmentTeam = UTW4F4N6DF;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -351,10 +351,10 @@
 			baseConfigurationReference = 4FBC21F14B7F3C325FC1D0D5 /* Pods-EyeBot.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4FNMZ7SN42;
+				DEVELOPMENT_TEAM = UTW4F4N6DF;
 				INFOPLIST_FILE = EyeBot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.eyebot.EyeBot;
+				PRODUCT_BUNDLE_IDENTIFIER = com.siemens.energy.EyeBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -365,10 +365,10 @@
 			baseConfigurationReference = FCC6C6D5AD7F29A34D21A18D /* Pods-EyeBot.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4FNMZ7SN42;
+				DEVELOPMENT_TEAM = UTW4F4N6DF;
 				INFOPLIST_FILE = EyeBot/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.eyebot.EyeBot;
+				PRODUCT_BUNDLE_IDENTIFIER = com.siemens.energy.EyeBot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
