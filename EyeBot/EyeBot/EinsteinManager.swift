@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 
 open class EinsteinManager {
     /// The singleton for the manager
