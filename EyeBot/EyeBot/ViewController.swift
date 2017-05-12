@@ -8,7 +8,6 @@
 //
 
 import UIKit
-import AVFoundation
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -33,8 +32,27 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imagePicker.delegate = self
         imagePicker.sourceType = UIImagePickerControllerSourceType.camera
         imagePicker.allowsEditing = true
+        imagePicker.cameraDevice = UIImagePickerControllerCameraDevice.rear
+        
+        let historyButton = UIBarButtonItem(title: "History", style: .plain, target: self, action: #selector(showHistory))
+        
+        imagePicker.navigationBar.isHidden = false
+        imagePicker.navigationBar.tintColor = UIColor.white
+        imagePicker.navigationBar.barStyle = UIBarStyle.blackTranslucent
+
+        imagePicker.navigationItem.rightBarButtonItem = historyButton
+  
+        let screenBounds: CGSize = UIScreen.main.bounds.size
+        
+        let scale = screenBounds.height / screenBounds.width
+        
+        imagePicker.cameraViewTransform = imagePicker.cameraViewTransform.scaledBy(x: scale, y: scale)
             
         self.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func showHistory() {
+        print("Showing History")
     }
 
 }
