@@ -16,6 +16,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var captureDevice: AVCaptureDevice?
     let captureButton = UIButton(type: .custom)
     
+    let historyButton = UIButton(type: .custom)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -130,6 +132,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let widthScreen = UIScreen.main.bounds.width
         let heightScreen = UIScreen.main.bounds.height
         
+        historyButton.frame = CGRect(x: 50, y: 50, width: 25, height: 25)
+        historyButton.clipsToBounds = 1
+        historyButton.setImage(#imageLiteral(resourceName: "historyButton"), for: .normal)
+        
         captureButton.frame = CGRect(x: widthScreen/2, y: heightScreen-50, width: 75, height: 75)
         captureButton.center = CGPoint(x: widthScreen/2, y: heightScreen-50)
         captureButton.layer.cornerRadius = 1
@@ -140,6 +146,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         touchCaptureButton.delegate = self
         captureButton.addGestureRecognizer(touchCaptureButton)
         previewLayer?.addSublayer(self.captureButton.layer)
+        previewLayer?.addSublayer(self.historyButton.layer)
+        
+        
     }
 }
 
