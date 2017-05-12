@@ -17,6 +17,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     let captureButton = UIButton(type: .custom)
     
     let settingsButton = UIButton(type: .custom)
+    let flashButton = UIButton(type: .custom)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -136,6 +137,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         settingsButton.clipsToBounds = true
         settingsButton.setImage(#imageLiteral(resourceName: "settingsButton"), for: .normal)
         
+        flashButton.frame = CGRect(x: 150, y: 50, width: 35, height: 35)
+        flashButton.clipsToBounds = true
+        flashButton.setImage(#imageLiteral(resourceName: "flashButton"), for: .normal)
+        
         captureButton.frame = CGRect(x: widthScreen/2, y: heightScreen-50, width: 75, height: 75)
         captureButton.center = CGPoint(x: widthScreen/2, y: heightScreen-50)
         captureButton.layer.cornerRadius = 1
@@ -147,7 +152,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         captureButton.addGestureRecognizer(touchCaptureButton)
         previewLayer?.addSublayer(self.captureButton.layer)
         previewLayer?.addSublayer(self.settingsButton.layer)
-        
+        previewLayer?.addSublayer(self.flashButton.layer)
         
     }
 }
