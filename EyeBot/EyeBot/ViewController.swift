@@ -14,9 +14,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     let captureSession = AVCaptureSession()
     var previewLayer: AVCaptureVideoPreviewLayer?
     var captureDevice: AVCaptureDevice?
+    let captureButton = UIButton()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //captureButton.addTarget(self, action: #selector(captureButtonTapped), for: .touchUpInside)
         // Do any additional setup after loading the view, typically from a nib.
         
         captureSession.sessionPreset = AVCaptureSessionPresetHigh
@@ -71,6 +75,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         viewDidLoad()
     }
     
+    func captureButtonTapped() {
+        
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -122,6 +130,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.view.layer.addSublayer(previewLayer!)
         previewLayer?.frame = self.view.layer.frame
         captureSession.startRunning()
+        
+        captureButton.setTitle("Capture", for: .normal)
+        captureButton.frame = CGRect(x: 50, y: 50, width: 50, height: 50)
+        previewLayer?.addSublayer(self.captureButton.layer)
     }
 }
 
