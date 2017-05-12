@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6742CF620C236842675CD48F /* Pods_EyeBot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96D82E656639FA3CEC640F2D /* Pods_EyeBot.framework */; };
 		A0E23F461EC5F071003F5844 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E23F451EC5F071003F5844 /* AppDelegate.swift */; };
 		A0E23F481EC5F071003F5844 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E23F471EC5F071003F5844 /* ViewController.swift */; };
 		A0E23F4B1EC5F071003F5844 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E23F491EC5F071003F5844 /* Main.storyboard */; };
@@ -16,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4FBC21F14B7F3C325FC1D0D5 /* Pods-EyeBot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyeBot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EyeBot/Pods-EyeBot.debug.xcconfig"; sourceTree = "<group>"; };
+		96D82E656639FA3CEC640F2D /* Pods_EyeBot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EyeBot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E23F421EC5F071003F5844 /* EyeBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyeBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E23F451EC5F071003F5844 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0E23F471EC5F071003F5844 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -24,6 +27,7 @@
 		A0E23F4F1EC5F071003F5844 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A0E23F511EC5F071003F5844 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0EA9DFD1EC6104C00BDF946 /* EinsteinManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EinsteinManager.swift; sourceTree = "<group>"; };
+		FCC6C6D5AD7F29A34D21A18D /* Pods-EyeBot.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyeBot.release.xcconfig"; path = "Pods/Target Support Files/Pods-EyeBot/Pods-EyeBot.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +35,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6742CF620C236842675CD48F /* Pods_EyeBot.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		81FDC5A6971BC1E862D31462 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4FBC21F14B7F3C325FC1D0D5 /* Pods-EyeBot.debug.xcconfig */,
+				FCC6C6D5AD7F29A34D21A18D /* Pods-EyeBot.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		A0E23F391EC5F071003F5844 = {
 			isa = PBXGroup;
 			children = (
 				A0E23F441EC5F071003F5844 /* EyeBot */,
 				A0E23F431EC5F071003F5844 /* Products */,
+				81FDC5A6971BC1E862D31462 /* Pods */,
+				BA8E58307BF08533E040EB09 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,6 +91,14 @@
 			name = API;
 			sourceTree = "<group>";
 		};
+		BA8E58307BF08533E040EB09 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				96D82E656639FA3CEC640F2D /* Pods_EyeBot.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -82,9 +106,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A0E23F541EC5F071003F5844 /* Build configuration list for PBXNativeTarget "EyeBot" */;
 			buildPhases = (
+				8FB74A5C5C522CB3FFF7B3CD /* [CP] Check Pods Manifest.lock */,
 				A0E23F3E1EC5F071003F5844 /* Sources */,
 				A0E23F3F1EC5F071003F5844 /* Frameworks */,
 				A0E23F401EC5F071003F5844 /* Resources */,
+				198BB4FC9A050F4D8D20A607 /* [CP] Embed Pods Frameworks */,
+				D48A5D8ACED4C030B904C29D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -142,6 +169,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		198BB4FC9A050F4D8D20A607 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EyeBot/Pods-EyeBot-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8FB74A5C5C522CB3FFF7B3CD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D48A5D8ACED4C030B904C29D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EyeBot/Pods-EyeBot-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A0E23F3E1EC5F071003F5844 /* Sources */ = {
@@ -273,6 +348,7 @@
 		};
 		A0E23F551EC5F071003F5844 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4FBC21F14B7F3C325FC1D0D5 /* Pods-EyeBot.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 4FNMZ7SN42;
@@ -286,6 +362,7 @@
 		};
 		A0E23F561EC5F071003F5844 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FCC6C6D5AD7F29A34D21A18D /* Pods-EyeBot.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 4FNMZ7SN42;

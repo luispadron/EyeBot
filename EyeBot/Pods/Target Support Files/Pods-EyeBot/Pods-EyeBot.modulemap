@@ -1,0 +1,6 @@
+framework module Pods_EyeBot {
+  umbrella header "Pods-EyeBot-umbrella.h"
+
+  export *
+  module * { export * }
+}
