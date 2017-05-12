@@ -1,0 +1,6 @@
+framework module SalesforceEinsteinVision {
+  umbrella header "SalesforceEinsteinVision-umbrella.h"
+
+  export *
+  module * { export * }
+}
