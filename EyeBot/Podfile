@@ -8,7 +8,7 @@ target 'EyeBot' do
   inhibit_all_warnings!  
 
   # Pods for EyeBot
-  pod 'Alamofire', '~> 4.4'  
-  pod "SalesforceEinsteinVision"
+  pod 'Alamofire'
+  pod 'AlamofireImage'  
 
 end

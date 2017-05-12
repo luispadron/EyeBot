@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double SalesforceEinsteinVisionVersionNumber;
-FOUNDATION_EXPORT const unsigned char SalesforceEinsteinVisionVersionString[];
+FOUNDATION_EXPORT double AlamofireImageVersionNumber;
+FOUNDATION_EXPORT const unsigned char AlamofireImageVersionString[];
 

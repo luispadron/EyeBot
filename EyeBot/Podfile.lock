@@ -1,19 +1,16 @@
 PODS:
   - Alamofire (4.4.0)
-  - SalesforceEinsteinVision (1.3.1):
-    - Alamofire (~> 4.0)
-    - SwiftyJSON
-  - SwiftyJSON (3.1.4)
+  - AlamofireImage (3.2.0):
+    - Alamofire (~> 4.1)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.4)
-  - SalesforceEinsteinVision
+  - Alamofire
+  - AlamofireImage
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
-  SalesforceEinsteinVision: 0a58544cfbbefe9725019f9507fc601e34ca4821
-  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
+  AlamofireImage: 157ed682cc81d3b9db4fb90c1f12180ac552d93b
 
-PODFILE CHECKSUM: af9df7b660f2c1ff12fa836f2911d6992ff5bca7
+PODFILE CHECKSUM: a4831613767163bc0b09cf5999b09727b98cd3a9
 
 COCOAPODS: 1.2.1
