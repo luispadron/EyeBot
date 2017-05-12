@@ -9,19 +9,15 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
     
     let captureSession = AVCaptureSession()
     var previewLayer: AVCaptureVideoPreviewLayer?
     var captureDevice: AVCaptureDevice?
-    let captureButton = UIButton()
-    
+    let captureButton = UIButton(type: .custom)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //captureButton.addTarget(self, action: #selector(captureButtonTapped), for: .touchUpInside)
-        // Do any additional setup after loading the view, typically from a nib.
         
         captureSession.sessionPreset = AVCaptureSessionPresetHigh
         
@@ -75,8 +71,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         viewDidLoad()
     }
     
-    func captureButtonTapped() {
-        
+    func captureButtonTapped(sender: UITapGestureRecognizer? = nil) {
+        print("Capture Button Tapped")
     }
     
     override func didReceiveMemoryWarning() {
@@ -131,8 +127,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         previewLayer?.frame = self.view.layer.frame
         captureSession.startRunning()
         
-        captureButton.setTitle("Capture", for: .normal)
-        captureButton.frame = CGRect(x: 50, y: 50, width: 50, height: 50)
+        let widthScreen = UIScreen.main.bounds.width
+        let heightScreen = UIScreen.main.bounds.height
+        
+        captureButton.frame = CGRect(x: widthScreen/2, y: heightScreen-50, width: 75, height: 75)
+        captureButton.center = CGPoint(x: widthScreen/2, y: heightScreen-50)
+        captureButton.layer.cornerRadius = 1
+        captureButton.clipsToBounds = true
+        captureButton.setImage(#imageLiteral(resourceName: "captureButton"), for: .normal)
+        let touchCaptureButton: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(captureButtonTapped))
+        touchCaptureButton.numberOfTapsRequired = 1
+        touchCaptureButton.delegate = self
+        captureButton.addGestureRecognizer(touchCaptureButton)
         previewLayer?.addSublayer(self.captureButton.layer)
     }
 }
