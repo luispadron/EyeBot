@@ -13,9 +13,15 @@ open class EinsteinManager {
     /// The singleton for the manager
     open static let shared = EinsteinManager()
     
+    /// General Image ID for classifying
+    static let generalImageId = "GeneralImageClassifier"
+    
+    /// The API Url endpoint which the manager will interact with
     open var apiUrl: String = "https://api.metamind.io/v1/vision/predict/"
+    
+    /// The JWT token that is grabbed from the Einstein authorization page
     open var token: String?
-    static var generalImageId = "GeneralImageClassifier"
+    
     
     public func predictGeneralImage(imageUrl: String) {
         guard let token = self.token else {
