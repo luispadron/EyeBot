@@ -133,7 +133,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let heightScreen = UIScreen.main.bounds.height
         
         historyButton.frame = CGRect(x: 50, y: 50, width: 25, height: 25)
-        historyButton.clipsToBounds = 1
+        historyButton.clipsToBounds = true
         historyButton.setImage(#imageLiteral(resourceName: "historyButton"), for: .normal)
         
         captureButton.frame = CGRect(x: widthScreen/2, y: heightScreen-50, width: 75, height: 75)
