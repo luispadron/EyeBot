@@ -14,7 +14,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     let captureSession = AVCaptureSession()
     var previewLayer: AVCaptureVideoPreviewLayer?
     var captureDevice: AVCaptureDevice?
-    let cameraOutput = AVCapturePhotoOutput()
+    let stillImageOutput = AVCapturePhotoOutput()
     
     let captureButton = UIButton(type: .custom)
     let settingsButton = UIButton(type: .custom)
@@ -79,12 +79,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let touchPoint = touch.location(in: self.view)
         let myCaptureButtonArea = CGRect(x: captureButton.frame.origin.x, y: captureButton.frame.origin.y, width: captureButton.frame.width, height: captureButton.frame.height)
         let myFlashButtonArea = CGRect(x: flashButton.frame.origin.x, y: flashButton.frame.origin.y, width: flashButton.frame.width, height: flashButton.frame.height)
+        let mySettingsButtonArea = CGRect(x: settingsButton.frame.origin.x, y: settingsButton.frame.origin.y, width: settingsButton.frame.width, height: settingsButton.frame.height)
         if myCaptureButtonArea.contains(touchPoint) {
             print ("Capture Button Tapped")
         } else if myFlashButtonArea.contains(touchPoint) {
             print ("Flash Button Tapped")
+        } else if mySettingsButtonArea.contains(touchPoint) {
+            print ("Settings Button Tapped")
         }
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -170,7 +172,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         captureButton.center = CGPoint(x: widthScreen/2, y: heightScreen-50)
         captureButton.clipsToBounds = true
         captureButton.setImage(#imageLiteral(resourceName: "captureButton"), for: .normal)
-        captureButton.isUserInteractionEnabled = true
         previewLayer?.addSublayer(self.captureButton.layer)
     }
 }
