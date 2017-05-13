@@ -86,10 +86,17 @@ open class EinsteinManager {
         }
     }
     
+    private lazy var activityView: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+        view.hidesWhenStopped = true
+        return view
+    }()
+    
     /// Typealias for the completion of a prediction call
     public typealias PredictionCompletion = (Prediction?, PredictionError?) -> Void
     
-    
+    /// Predicts an image with a specific modelID, completion will return a prediction or prediction error if something
+    /// goes wrong
     public func predictImage(_ img: UIImage, withModelId modelId: String, completion: @escaping PredictionCompletion) {
         guard let imgData = UIImageJPEGRepresentation(img, 70) else {
             fatalError("Error converting image to png representation: \(img)")
@@ -102,6 +109,9 @@ open class EinsteinManager {
         else {
             fatalError("Error converting either modelID or img to to data")
         }
+        
+        // Start activity indicator
+        toggleActivityIndicator()
         
         Alamofire.upload(
             multipartFormData:
@@ -119,10 +129,12 @@ open class EinsteinManager {
             method: .post,
             headers: self.predictHeaders)
             { (uploadResult) in
+                // collect the JSON and return the result
                 self.collectJSON(fromResult: uploadResult, completion: completion)
             }
     }
     
+    /// Collects the JSON and creates the appropriate Prediction model
     private func collectJSON(fromResult result: SessionManager.MultipartFormDataEncodingResult,
                              completion: PredictionCompletion?) {
         
@@ -143,11 +155,36 @@ open class EinsteinManager {
                                                     "Current token is: \(String(describing: self.token))")
                 }
                 
+                // Stop activity indicator
+                self.toggleActivityIndicator()
+                // Call the completion and send it the prediction
                 completion?(Prediction(withJSON: json), error)
             }
             
         case .failure(let error):
             print("Error collecting result from prediction, error: \(error)")
+        }
+    }
+    
+    
+    /// Toggles the activity indicator view
+    private func toggleActivityIndicator() {
+        guard let window = UIApplication.shared.keyWindow else {
+            print("Unable to get window for application")
+            return
+        }
+        
+        DispatchQueue.main.async {
+            if !window.subviews.contains(self.activityView) {
+                self.activityView.center = window.center
+                window.addSubview(self.activityView)
+            }
+            
+            if self.activityView.isAnimating {
+                self.activityView.stopAnimating()
+            } else {
+                self.activityView.startAnimating()
+            }
         }
     }
 }
