@@ -6,4 +6,12 @@
 //  Copyright © 2017 com.eyebot. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+class ResultsViewController: UIViewController
+{
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+}

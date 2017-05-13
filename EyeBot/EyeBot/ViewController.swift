@@ -113,6 +113,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         }
         else if mySettingsButtonArea.contains(touchPoint) {
             print ("Settings Button Tapped")
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ResultsView") as! ResultViewController
+            self.present(vc, animated: false, completion: nil)
         }
     }
     
@@ -200,4 +202,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         captureButton.setImage(#imageLiteral(resourceName: "captureButton"), for: .normal)
         previewLayer?.addSublayer(self.captureButton.layer)
     }
+    
+
+    
+    
 }

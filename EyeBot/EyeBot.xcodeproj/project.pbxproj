@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22C69C3B1EC7A97200B77D85 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C69C3A1EC7A97200B77D85 /* ResultsViewController.swift */; };
+		22C69C3D1EC7BA2F00B77D85 /* ResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22C69C3C1EC7BA2F00B77D85 /* ResultViewController.swift */; };
 		6742CF620C236842675CD48F /* Pods_EyeBot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96D82E656639FA3CEC640F2D /* Pods_EyeBot.framework */; };
 		A0E23F461EC5F071003F5844 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E23F451EC5F071003F5844 /* AppDelegate.swift */; };
 		A0E23F481EC5F071003F5844 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E23F471EC5F071003F5844 /* ViewController.swift */; };
@@ -18,7 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		22C69C3A1EC7A97200B77D85 /* ResultsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		22C69C3C1EC7BA2F00B77D85 /* ResultViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResultViewController.swift; sourceTree = "<group>"; };
 		4FBC21F14B7F3C325FC1D0D5 /* Pods-EyeBot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyeBot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EyeBot/Pods-EyeBot.debug.xcconfig"; sourceTree = "<group>"; };
 		96D82E656639FA3CEC640F2D /* Pods_EyeBot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EyeBot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E23F421EC5F071003F5844 /* EyeBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyeBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,7 +78,7 @@
 				A0E23F451EC5F071003F5844 /* AppDelegate.swift */,
 				A0E23F471EC5F071003F5844 /* ViewController.swift */,
 				A0E23F491EC5F071003F5844 /* Main.storyboard */,
-				22C69C3A1EC7A97200B77D85 /* ResultsViewController.swift */,
+				22C69C3C1EC7BA2F00B77D85 /* ResultViewController.swift */,
 				A0E23F4C1EC5F071003F5844 /* Assets.xcassets */,
 				A0E23F4E1EC5F071003F5844 /* LaunchScreen.storyboard */,
 				A0E23F511EC5F071003F5844 /* Info.plist */,
@@ -226,10 +226,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22C69C3D1EC7BA2F00B77D85 /* ResultViewController.swift in Sources */,
 				A0E23F481EC5F071003F5844 /* ViewController.swift in Sources */,
 				A0EA9DFE1EC6104C00BDF946 /* EinsteinManager.swift in Sources */,
 				A0E23F461EC5F071003F5844 /* AppDelegate.swift in Sources */,
-				22C69C3B1EC7A97200B77D85 /* ResultsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
