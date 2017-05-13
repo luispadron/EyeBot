@@ -9,11 +9,12 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, AVCapturePhotoCaptureDelegate {
     
     let captureSession = AVCaptureSession()
     var previewLayer: AVCaptureVideoPreviewLayer?
     var captureDevice: AVCaptureDevice?
+    let cameraOutput = AVCapturePhotoOutput()
     
     let captureButton = UIButton(type: .custom)
     let settingsButton = UIButton(type: .custom)
@@ -76,11 +77,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func testAction(touch: UITapGestureRecognizer) {
         let touchPoint = touch.location(in: self.view)
-        let myRealArea = CGRect(x: captureButton.frame.origin.x, y: captureButton.frame.origin.y, width: captureButton.frame.width, height: captureButton.frame.height)
-        if myRealArea.contains(touchPoint) {
+        let myCaptureButtonArea = CGRect(x: captureButton.frame.origin.x, y: captureButton.frame.origin.y, width: captureButton.frame.width, height: captureButton.frame.height)
+        let myFlashButtonArea = CGRect(x: flashButton.frame.origin.x, y: flashButton.frame.origin.y, width: flashButton.frame.width, height: flashButton.frame.height)
+        if myCaptureButtonArea.contains(touchPoint) {
             print ("Capture Button Tapped")
-        } else {
-            print ("Capture Button Not Tapped")
+        } else if myFlashButtonArea.contains(touchPoint) {
+            print ("Flash Button Tapped")
         }
         
     }
@@ -148,14 +150,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     func addSettingsButton() {
-        settingsButton.frame = CGRect(x: 50, y: 50, width: 25, height: 25)
+        settingsButton.frame = CGRect(x: 10, y: 20, width: 30, height: 30)
         settingsButton.clipsToBounds = true
         settingsButton.setImage(#imageLiteral(resourceName: "settingsButton"), for: .normal)
         previewLayer?.addSublayer(self.settingsButton.layer)
     }
     
     func addFlashButton() {
-        flashButton.frame = CGRect(x: 150, y: 50, width: 35, height: 35)
+        flashButton.frame = CGRect(x: 375, y: 25, width: 30, height: 30)
         flashButton.clipsToBounds = true
         flashButton.setImage(#imageLiteral(resourceName: "flashButton"), for: .normal)
         previewLayer?.addSublayer(self.flashButton.layer)
