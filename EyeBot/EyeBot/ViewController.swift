@@ -11,6 +11,10 @@ import AVFoundation
 
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
+    let captureButton = UIButton(type: .custom)
+    let settingsButton = UIButton(type: .custom)
+    let flashButton = UIButton(type: .custom)
+    
     let captureSession = AVCaptureSession()
     var previewLayer: CALayer!
     
@@ -28,7 +32,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
     func prepareCamera() {
-        captureSession.sessionPreset = AVCaptureSessionPresetPhoto
+        captureSession.sessionPreset = AVCaptureSessionPresetHigh
         
         if let availableDevices = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaTypeVideo, position: .back).devices {
             captureDevice = availableDevices.first
@@ -48,8 +52,19 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         if let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession) {
             self.previewLayer = previewLayer
             self.view.layer.addSublayer(self.previewLayer)
+            let button = UIButton(type: .system)
+            button.center = self.view.center
             self.previewLayer.frame = self.view.layer.frame
             captureSession.startRunning()
+            
+            let touchRecognizer = UITapGestureRecognizer(target: self, action: #selector(testAction(touch:)))
+            touchRecognizer.numberOfTapsRequired = 1
+            self.view.addGestureRecognizer(touchRecognizer)
+
+            
+            addSettingsButton()
+            addFlashButton()
+            addCaptureButton()
             
             let dataOutput = AVCaptureVideoDataOutput()
             dataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString):NSNumber(value: kCVPixelFormatType_32BGRA)]
@@ -67,9 +82,19 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         }
     }
     
-    
-    @IBAction func takePhoto(_ sender: Any) {
-        takePhoto = true
+    func testAction(touch: UITapGestureRecognizer) {
+        let touchPoint = touch.location(in: self.view)
+        let myCaptureButtonArea = CGRect(x: captureButton.frame.origin.x, y: captureButton.frame.origin.y, width: captureButton.frame.width, height: captureButton.frame.height)
+        let myFlashButtonArea = CGRect(x: flashButton.frame.origin.x, y: flashButton.frame.origin.y, width: flashButton.frame.width, height: flashButton.frame.height)
+        let mySettingsButtonArea = CGRect(x: settingsButton.frame.origin.x, y: settingsButton.frame.origin.y, width: settingsButton.frame.width, height: settingsButton.frame.height)
+        if myCaptureButtonArea.contains(touchPoint) {
+            print ("Capture Button Tapped")
+            takePhoto = true
+        } else if myFlashButtonArea.contains(touchPoint) {
+            print ("Flash Button Tapped")
+        } else if mySettingsButtonArea.contains(touchPoint) {
+            print ("Settings Button Tapped")
+        }
     }
     
     func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
@@ -119,6 +144,32 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     override func didReceiveMemoryWarning() {
             super.didReceiveMemoryWarning()
         }
+    
+    func addSettingsButton() {
+        settingsButton.frame = CGRect(x: 10, y: 20, width: 30, height: 30)
+        settingsButton.clipsToBounds = true
+        settingsButton.setImage(#imageLiteral(resourceName: "settingsButton"), for: .normal)
+        previewLayer?.addSublayer(self.settingsButton.layer)
+    }
+    
+    func addFlashButton() {
+        flashButton.frame = CGRect(x: 375, y: 25, width: 30, height: 30)
+        flashButton.clipsToBounds = true
+        flashButton.setImage(#imageLiteral(resourceName: "flashButton"), for: .normal)
+        previewLayer?.addSublayer(self.flashButton.layer)
+    }
+    
+    func addCaptureButton() {
+        let widthScreen = UIScreen.main.bounds.width
+        let heightScreen = UIScreen.main.bounds.height
+        captureButton.frame = CGRect(x: widthScreen/2, y: heightScreen-50, width: 75, height: 75)
+        captureButton.center = CGPoint(x: widthScreen/2, y: heightScreen-50)
+        captureButton.clipsToBounds = true
+        captureButton.setImage(#imageLiteral(resourceName: "captureButton"), for: .normal)
+        previewLayer?.addSublayer(self.captureButton.layer)
+    }
+
+    
 }
 
 
