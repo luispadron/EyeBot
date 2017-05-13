@@ -5,23 +5,16 @@ PODS:
   - Realm/Headers (2.7.0)
   - RealmSwift (2.7.0):
     - Realm (= 2.7.0)
-  - SalesforceEinsteinVision (1.3.3):
-    - Alamofire (~> 4.0)
-    - SwiftyJSON
-  - SwiftyJSON (3.1.4)
 
 DEPENDENCIES:
   - Alamofire
   - RealmSwift
-  - SalesforceEinsteinVision
 
 SPEC CHECKSUMS:
   Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   Realm: 07e5d3a9e0e41d65fd5f9f05150ed6295d0f093b
   RealmSwift: 6d06425d3900c86473c4f323bf6949b43fca22bc
-  SalesforceEinsteinVision: 6b7d5e2755c4fb0818083edd6a026a19e1625750
-  SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: a4976f30991203fa1c04965d4a1fba4e4aa644df
+PODFILE CHECKSUM: dd1718e896a40368e7596c8eca55e5757ad730c2
 
 COCOAPODS: 1.2.1
