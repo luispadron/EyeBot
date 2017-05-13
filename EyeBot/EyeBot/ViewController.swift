@@ -33,6 +33,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         prepareCamera()
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
     func prepareCamera() {
         captureSession.sessionPreset = AVCaptureSessionPresetHigh
         
@@ -59,11 +63,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             self.previewLayer.frame = self.view.layer.frame
             captureSession.startRunning()
             
-            let touchRecognizer = UITapGestureRecognizer(target: self, action: #selector(testAction(touch:)))
+            let touchRecognizer = UITapGestureRecognizer(target: self, action: #selector(actionButtonsPressed(touch:)))
             touchRecognizer.numberOfTapsRequired = 1
             self.view.addGestureRecognizer(touchRecognizer)
 
-            
             addSettingsButton()
             addFlashButton()
             addCaptureButton()
@@ -84,7 +87,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         }
     }
     
-    func testAction(touch: UITapGestureRecognizer) {
+    func actionButtonsPressed(touch: UITapGestureRecognizer) {
         let touchPoint = touch.location(in: self.view)
         let myCaptureButtonArea = CGRect(x: captureButton.frame.origin.x, y: captureButton.frame.origin.y, width: captureButton.frame.width, height: captureButton.frame.height)
         let myFlashButtonArea = CGRect(x: flashButton.frame.origin.x, y: flashButton.frame.origin.y, width: flashButton.frame.width, height: flashButton.frame.height)
@@ -106,9 +109,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 catch {
                     print(error.localizedDescription)
                 }
-        } else if mySettingsButtonArea.contains(touchPoint) {
-            print ("Settings Button Tapped")
+            } 
         }
+        else if mySettingsButtonArea.contains(touchPoint) {
+            print ("Settings Button Tapped")
         }
     }
     
@@ -132,7 +136,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             let focusPoint = CGPoint(x: x, y: y)
             
             if !myCaptureButtonArea.contains((touches.first?.location(in: self.view))!) {
-                print("Inside Capture Area")
                 if let device = captureDevice {
                     do {
                         try device.lockForConfiguration()
@@ -161,7 +164,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 return UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .right)
             }
         }
-        
         return nil
     }
     
@@ -174,10 +176,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             }
         }
     }
- 
-    override func didReceiveMemoryWarning() {
-            super.didReceiveMemoryWarning()
-        }
     
     func addSettingsButton() {
         settingsButton.frame = CGRect(x: 10, y: 20, width: 30, height: 30)
@@ -202,6 +200,4 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         captureButton.setImage(#imageLiteral(resourceName: "captureButton"), for: .normal)
         previewLayer?.addSublayer(self.captureButton.layer)
     }
-
-    
 }
