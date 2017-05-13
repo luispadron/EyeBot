@@ -9,6 +9,7 @@ target 'EyeBot' do
 
   # Pods for EyeBot
   pod 'Alamofire'
-  pod 'AlamofireImage'  
+  pod 'RealmSwift'
+  pod 'SalesforceEinsteinVision'  
 
 end
