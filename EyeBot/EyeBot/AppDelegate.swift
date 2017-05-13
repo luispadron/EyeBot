@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        EinsteinManager.shared.token = "bc40d4bc397486870b05501058a54dc4eafd7c14"
+        EinsteinManager.shared.token = "cee371765729d48718c4ded34eb3fa44a9ad41b7"
         return true
     }
 
