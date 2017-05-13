@@ -126,9 +126,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             } 
         }
         else if mySettingsButtonArea.contains(touchPoint) {
-            
-            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ResultsView") as! ResultViewController
-            self.present(vc, animated: false, completion: nil)
+            showResultPopover(sender: self.view)
         }
     }
     
@@ -241,5 +239,25 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         captureButton.clipsToBounds = true
         captureButton.setImage(#imageLiteral(resourceName: "captureButton"), for: .normal)
         previewLayer?.addSublayer(self.captureButton.layer)
+    }
+    
+    func showResultPopover(sender: UIView) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "ResultsView") as! ResultViewController
+        vc.modalPresentationStyle = .popover
+        
+        if let popover = vc.popoverPresentationController {
+            
+            let viewForSource = sender
+            popover.sourceView = viewForSource
+            
+            // the position of the popover where it's showed
+            popover.sourceRect = viewForSource.bounds
+            
+            // the size you want to display
+            vc.preferredContentSize = CGSize(width:200,height:500)
+            popover.delegate = self as? UIPopoverPresentationControllerDelegate
+        }
+        
+        self.present(vc, animated: true, completion: nil)
     }
 }
