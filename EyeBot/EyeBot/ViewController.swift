@@ -111,23 +111,27 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let myCaptureButtonArea = CGRect(x: captureButton.frame.origin.x, y: captureButton.frame.origin.y, width: captureButton.frame.width, height: captureButton.frame.height)
         let screenSize = UIScreen.main.bounds.size
         if let touchPoint = touches.first {
             let x = touchPoint.location(in: self.view).y / screenSize.height
             let y = touchPoint.location(in: self.view).x / screenSize.width
             let focusPoint = CGPoint(x: x, y: y)
             
-            if let device = captureDevice {
-                do {
-                    try device.lockForConfiguration()
-                    device.focusPointOfInterest = focusPoint
-                    device.focusMode = .autoFocus
-                    device.exposurePointOfInterest = focusPoint
-                    device.exposureMode = AVCaptureExposureMode.continuousAutoExposure
-                    device.unlockForConfiguration()
-                }
-                catch {
-                    print(error.localizedDescription)
+            if !myCaptureButtonArea.contains((touches.first?.location(in: self.view))!) {
+                print("Inside Capture Area")
+                if let device = captureDevice {
+                    do {
+                        try device.lockForConfiguration()
+                        device.focusPointOfInterest = focusPoint
+                        device.focusMode = .autoFocus
+                        device.exposurePointOfInterest = focusPoint
+                        device.exposureMode = AVCaptureExposureMode.continuousAutoExposure
+                        device.unlockForConfiguration()
+                    }
+                    catch {
+                        print(error.localizedDescription)
+                    }
                 }
             }
         }
