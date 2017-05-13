@@ -9,70 +9,77 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIGestureRecognizerDelegate, AVCapturePhotoCaptureDelegate {
-    
-    let captureSession = AVCaptureSession()
-    var previewLayer: AVCaptureVideoPreviewLayer?
-    var captureDevice: AVCaptureDevice?
-    let stillImageOutput = AVCapturePhotoOutput()
+class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     let captureButton = UIButton(type: .custom)
     let settingsButton = UIButton(type: .custom)
     let flashButton = UIButton(type: .custom)
     
+    let captureSession = AVCaptureSession()
+    var previewLayer: CALayer!
+    
+    var captureDevice:AVCaptureDevice!
+    
+    var takePhoto = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        prepareCamera()
+    }
+    
+    func prepareCamera() {
         captureSession.sessionPreset = AVCaptureSessionPresetHigh
         
-        if let deviceDescoverySession = AVCaptureDeviceDiscoverySession.init(deviceTypes: [AVCaptureDeviceType.builtInWideAngleCamera],
-                                                                             mediaType: AVMediaTypeVideo,
-                                                                             position: AVCaptureDevicePosition.unspecified) {
-            
-            for device in deviceDescoverySession.devices {
-                if ((device as AnyObject).hasMediaType(AVMediaTypeVideo)) {
-                    // Finally check the position and confirm we've got the back camera
-                    if((device as AnyObject).position == AVCaptureDevicePosition.back) {
-                        captureDevice = device
-                        if captureDevice != nil {
-                            beginSession()
-                        }
-                        else {
-                            let alertTitle = "There was an issue loading the camera"
-                            let alertController = UIAlertController(
-                                title: nil,
-                                message: alertTitle,
-                                preferredStyle: UIAlertControllerStyle.alert
-                            )
-                            
-                            let discardChangesAction = UIAlertAction(
-                                title: "Try Again",
-                                style: UIAlertActionStyle.destructive) { (action) in
-                                    self.loadData()
-                                    self.dismiss(animated: true, completion: nil)}
-                            
-                            
-                            let continueEditing = UIAlertAction(
-                                title: "OK",
-                                style: UIAlertActionStyle.destructive) { (action) in }
-                            
-                            alertController.addAction(discardChangesAction)
-                            alertController.addAction(continueEditing)
-                            
-                            present(alertController, animated: true, completion: nil)
-                        }
-                    }
-                }
-            }
+        if let availableDevices = AVCaptureDeviceDiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaTypeVideo, position: .back).devices {
+            captureDevice = availableDevices.first
+            beginSession()
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    func loadData() {
-        viewDidLoad()
+    func beginSession() {
+        do {
+            let captureDeviceInput = try AVCaptureDeviceInput(device: captureDevice)
+            
+            captureSession.addInput(captureDeviceInput)
+        } catch {
+            print(error.localizedDescription)
+        }
+        
+        if let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession) {
+            self.previewLayer = previewLayer
+            self.view.layer.addSublayer(self.previewLayer)
+            let button = UIButton(type: .system)
+            button.center = self.view.center
+            self.previewLayer.frame = self.view.layer.frame
+            captureSession.startRunning()
+            
+            let touchRecognizer = UITapGestureRecognizer(target: self, action: #selector(testAction(touch:)))
+            touchRecognizer.numberOfTapsRequired = 1
+            self.view.addGestureRecognizer(touchRecognizer)
+
+            
+            addSettingsButton()
+            addFlashButton()
+            addCaptureButton()
+            
+            let dataOutput = AVCaptureVideoDataOutput()
+            dataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString):NSNumber(value: kCVPixelFormatType_32BGRA)]
+            
+            dataOutput.alwaysDiscardsLateVideoFrames = true
+            
+            if captureSession.canAddOutput(dataOutput) {
+                captureSession.addOutput(dataOutput)
+            }
+            
+            captureSession.commitConfiguration()
+            
+            let queue = DispatchQueue(label: "com.EyeBot.EyeBot")
+            dataOutput.setSampleBufferDelegate(self, queue: queue)
+        }
     }
     
     func testAction(touch: UITapGestureRecognizer) {
@@ -82,6 +89,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let mySettingsButtonArea = CGRect(x: settingsButton.frame.origin.x, y: settingsButton.frame.origin.y, width: settingsButton.frame.width, height: settingsButton.frame.height)
         if myCaptureButtonArea.contains(touchPoint) {
             print ("Capture Button Tapped")
+            takePhoto = true
         } else if myFlashButtonArea.contains(touchPoint) {
             print ("Flash Button Tapped")
         } else if mySettingsButtonArea.contains(touchPoint) {
@@ -89,67 +97,53 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
     }
     
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
+        if takePhoto {
+            takePhoto = false
+            
+            if let image = self.getImageFromSampleBuffer(buffer: sampleBuffer) {
+                
+                let photoVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhotoVC") as! PhotoViewController
+                
+                photoVC.takenPhoto = image
+                
+                DispatchQueue.main.async {
+                    self.present(photoVC, animated: true, completion: {
+                        self.stopCaptureSession()
+                    })
+                }
+            }
+        }
+    }
+
+    func getImageFromSampleBuffer(buffer: CMSampleBuffer) -> UIImage? {
+        if let pixelBuffer = CMSampleBufferGetImageBuffer(buffer) {
+            let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+            let context = CIContext()
+            
+            let imageRect = CGRect(x: 0, y: 0, width: CVPixelBufferGetWidth(pixelBuffer), height: CVPixelBufferGetHeight(pixelBuffer))
+            
+            if let image = context.createCGImage(ciImage, from: imageRect) {
+                return UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .right)
+            }
+        }
+        
+        return nil
+    }
+    
+    func stopCaptureSession() {
+        self.captureSession.stopRunning()
+        
+        if let inputs = captureSession.inputs as? [AVCaptureDeviceInput] {
+            for input in inputs {
+                self.captureSession.removeInput(input)
+            }
+        }
+    }
+ 
     override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        if let device = captureDevice {
-            do { try captureDevice!.lockForConfiguration() }
-            catch let error1 as NSError { print(error1) }
-            
-            device.focusMode = AVCaptureFocusMode.autoFocus
-            device.exposureMode = AVCaptureExposureMode.autoExpose
-            
-            device.unlockForConfiguration()
+            super.didReceiveMemoryWarning()
         }
-        super.touchesBegan(touches, with: event)
-    }
-    
-    func configureDevice() {
-        if let device = captureDevice {
-            do { try captureDevice!.lockForConfiguration() }
-            catch let error1 as NSError { print(error1) }
-            
-            device.focusMode = .locked
-            device.unlockForConfiguration()
-        }
-    }
-    
-    func beginSession() {
-        configureDevice()
-        var err : NSError? = nil
-        
-        var deviceInput: AVCaptureDeviceInput!
-        do { deviceInput = try AVCaptureDeviceInput(device: captureDevice) }
-        catch let error as NSError {
-            err = error
-            deviceInput = nil
-        };
-        
-        captureSession.addInput(deviceInput)
-        
-        if err != nil {
-            print("error: \(String(describing: err?.localizedDescription))")
-        }
-        
-        previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        
-        self.view.layer.addSublayer(previewLayer!)
-        previewLayer?.frame = self.view.layer.frame
-        captureSession.startRunning()
-        
-        let touchRecognizer = UITapGestureRecognizer(target: self, action: #selector(testAction(touch:)))
-        touchRecognizer.numberOfTapsRequired = 1
-        touchRecognizer.delegate = self
-        self.view.addGestureRecognizer(touchRecognizer)
-        
-        addSettingsButton()
-        addFlashButton()
-        addCaptureButton()
-    }
     
     func addSettingsButton() {
         settingsButton.frame = CGRect(x: 10, y: 20, width: 30, height: 30)
@@ -174,5 +168,8 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         captureButton.setImage(#imageLiteral(resourceName: "captureButton"), for: .normal)
         previewLayer?.addSublayer(self.captureButton.layer)
     }
+
+    
 }
+
 
