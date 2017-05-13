@@ -124,7 +124,16 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             
             if let image = self.getImageFromSampleBuffer(buffer: sampleBuffer) {
                 takenPhoto = image
-                print("Taken photo is your image")
+                EinsteinManager.shared.predictImage(image,
+                                                    withModelId: EinsteinManager.generalImageId,
+                                                    completion:
+                { (prediction, error) in
+                    if error == nil {
+                        print(prediction?.mostProbable.label ?? "No label predicted")
+                    } else {
+                        print(error!.message)
+                    }
+                })
             }
         }
     }
