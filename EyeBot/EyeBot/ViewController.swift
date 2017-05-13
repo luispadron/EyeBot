@@ -33,6 +33,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         prepareCamera()
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
     func prepareCamera() {
         captureSession.sessionPreset = AVCaptureSessionPresetHigh
         
@@ -59,11 +63,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             self.previewLayer.frame = self.view.layer.frame
             captureSession.startRunning()
             
-            let touchRecognizer = UITapGestureRecognizer(target: self, action: #selector(testAction(touch:)))
+            let touchRecognizer = UITapGestureRecognizer(target: self, action: #selector(actionButtonsPressed(touch:)))
             touchRecognizer.numberOfTapsRequired = 1
             self.view.addGestureRecognizer(touchRecognizer)
 
-            
             addSettingsButton()
             addFlashButton()
             addCaptureButton()
@@ -84,7 +87,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         }
     }
     
-    func testAction(touch: UITapGestureRecognizer) {
+    func actionButtonsPressed(touch: UITapGestureRecognizer) {
         let touchPoint = touch.location(in: self.view)
         let myCaptureButtonArea = CGRect(x: captureButton.frame.origin.x, y: captureButton.frame.origin.y, width: captureButton.frame.width, height: captureButton.frame.height)
         let myFlashButtonArea = CGRect(x: flashButton.frame.origin.x, y: flashButton.frame.origin.y, width: flashButton.frame.width, height: flashButton.frame.height)
@@ -94,7 +97,21 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             takePhoto = true
         } else if myFlashButtonArea.contains(touchPoint) {
             print ("Flash Button Tapped")
-        } else if mySettingsButtonArea.contains(touchPoint) {
+            if let device = captureDevice {
+                do {
+                    try device.lockForConfiguration()
+                    if device.isTorchActive {
+                        device.torchMode = AVCaptureTorchMode.off
+                    } else {
+                        device.torchMode = AVCaptureTorchMode.on
+                    }
+                }
+                catch {
+                    print(error.localizedDescription)
+                }
+            } 
+        }
+        else if mySettingsButtonArea.contains(touchPoint) {
             print ("Settings Button Tapped")
         }
     }
@@ -111,23 +128,26 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let myCaptureButtonArea = CGRect(x: captureButton.frame.origin.x, y: captureButton.frame.origin.y, width: captureButton.frame.width, height: captureButton.frame.height)
         let screenSize = UIScreen.main.bounds.size
         if let touchPoint = touches.first {
             let x = touchPoint.location(in: self.view).y / screenSize.height
             let y = touchPoint.location(in: self.view).x / screenSize.width
             let focusPoint = CGPoint(x: x, y: y)
             
-            if let device = captureDevice {
-                do {
-                    try device.lockForConfiguration()
-                    device.focusPointOfInterest = focusPoint
-                    device.focusMode = .autoFocus
-                    device.exposurePointOfInterest = focusPoint
-                    device.exposureMode = AVCaptureExposureMode.continuousAutoExposure
-                    device.unlockForConfiguration()
-                }
-                catch {
-                    print(error.localizedDescription)
+            if !myCaptureButtonArea.contains((touches.first?.location(in: self.view))!) {
+                if let device = captureDevice {
+                    do {
+                        try device.lockForConfiguration()
+                        device.focusPointOfInterest = focusPoint
+                        device.focusMode = .autoFocus
+                        device.exposurePointOfInterest = focusPoint
+                        device.exposureMode = AVCaptureExposureMode.continuousAutoExposure
+                        device.unlockForConfiguration()
+                    }
+                    catch {
+                        print(error.localizedDescription)
+                    }
                 }
             }
         }
@@ -144,7 +164,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 return UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .right)
             }
         }
-        
         return nil
     }
     
@@ -157,10 +176,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             }
         }
     }
- 
-    override func didReceiveMemoryWarning() {
-            super.didReceiveMemoryWarning()
-        }
     
     func addSettingsButton() {
         settingsButton.frame = CGRect(x: 10, y: 20, width: 30, height: 30)
@@ -185,6 +200,4 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         captureButton.setImage(#imageLiteral(resourceName: "captureButton"), for: .normal)
         previewLayer?.addSublayer(self.captureButton.layer)
     }
-
-    
 }
