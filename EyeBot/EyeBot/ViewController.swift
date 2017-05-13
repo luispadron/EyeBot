@@ -94,8 +94,21 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             takePhoto = true
         } else if myFlashButtonArea.contains(touchPoint) {
             print ("Flash Button Tapped")
+            if let device = captureDevice {
+                do {
+                    try device.lockForConfiguration()
+                    if device.isTorchActive {
+                        device.torchMode = AVCaptureTorchMode.off
+                    } else {
+                        device.torchMode = AVCaptureTorchMode.on
+                    }
+                }
+                catch {
+                    print(error.localizedDescription)
+                }
         } else if mySettingsButtonArea.contains(touchPoint) {
             print ("Settings Button Tapped")
+        }
         }
     }
     
