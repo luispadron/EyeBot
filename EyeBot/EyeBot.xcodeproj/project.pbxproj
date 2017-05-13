@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6742CF620C236842675CD48F /* Pods_EyeBot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96D82E656639FA3CEC640F2D /* Pods_EyeBot.framework */; };
-		9381A0491EC78193008316E9 /* PhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9381A0481EC78193008316E9 /* PhotoViewController.swift */; };
 		A0E23F461EC5F071003F5844 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E23F451EC5F071003F5844 /* AppDelegate.swift */; };
 		A0E23F481EC5F071003F5844 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E23F471EC5F071003F5844 /* ViewController.swift */; };
 		A0E23F4B1EC5F071003F5844 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E23F491EC5F071003F5844 /* Main.storyboard */; };
@@ -19,7 +18,6 @@
 
 /* Begin PBXFileReference section */
 		4FBC21F14B7F3C325FC1D0D5 /* Pods-EyeBot.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EyeBot.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EyeBot/Pods-EyeBot.debug.xcconfig"; sourceTree = "<group>"; };
-		9381A0481EC78193008316E9 /* PhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoViewController.swift; sourceTree = "<group>"; };
 		96D82E656639FA3CEC640F2D /* Pods_EyeBot.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EyeBot.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E23F421EC5F071003F5844 /* EyeBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyeBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E23F451EC5F071003F5844 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -78,7 +76,6 @@
 				A0E23F451EC5F071003F5844 /* AppDelegate.swift */,
 				A0E23F471EC5F071003F5844 /* ViewController.swift */,
 				A0E23F491EC5F071003F5844 /* Main.storyboard */,
-				9381A0481EC78193008316E9 /* PhotoViewController.swift */,
 				A0E23F4C1EC5F071003F5844 /* Assets.xcassets */,
 				A0E23F4E1EC5F071003F5844 /* LaunchScreen.storyboard */,
 				A0E23F511EC5F071003F5844 /* Info.plist */,
@@ -227,7 +224,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0E23F481EC5F071003F5844 /* ViewController.swift in Sources */,
-				9381A0491EC78193008316E9 /* PhotoViewController.swift in Sources */,
 				A0EA9DFE1EC6104C00BDF946 /* EinsteinManager.swift in Sources */,
 				A0E23F461EC5F071003F5844 /* AppDelegate.swift in Sources */,
 			);

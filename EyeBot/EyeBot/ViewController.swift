@@ -11,6 +11,8 @@ import AVFoundation
 
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
+    var takenPhoto:UIImage?
+    
     let captureButton = UIButton(type: .custom)
     let settingsButton = UIButton(type: .custom)
     let flashButton = UIButton(type: .custom)
@@ -102,16 +104,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             takePhoto = false
             
             if let image = self.getImageFromSampleBuffer(buffer: sampleBuffer) {
-                
-                let photoVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PhotoVC") as! PhotoViewController
-                
-                photoVC.takenPhoto = image
-                
-                DispatchQueue.main.async {
-                    self.present(photoVC, animated: true, completion: {
-                        self.stopCaptureSession()
-                    })
-                }
+                takenPhoto = image
+                print("Taken photo is your image")
             }
         }
     }
@@ -171,5 +165,3 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
 
     
 }
-
-

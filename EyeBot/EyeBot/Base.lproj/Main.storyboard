@@ -28,37 +28,5 @@
             </objects>
             <point key="canvasLocation" x="1445.5999999999999" y="-545.57721139430294"/>
         </scene>
-        <!--Photo View Controller-->
-        <scene sceneID="Za1-lc-8yN">
-            <objects>
-                <viewController storyboardIdentifier="PhotoVC" id="jgG-XR-ZoP" customClass="PhotoViewController" customModule="EyeBot" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Md6-4i-5ER"/>
-                        <viewControllerLayoutGuide type="bottom" id="VpY-WJ-6gi"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="wu7-YA-7Sj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hYn-TQ-3gC">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="hYn-TQ-3gC" firstAttribute="leading" secondItem="wu7-YA-7Sj" secondAttribute="leading" id="4OY-Yy-fRD"/>
-                            <constraint firstItem="hYn-TQ-3gC" firstAttribute="top" secondItem="wu7-YA-7Sj" secondAttribute="top" id="AWl-BR-IUR"/>
-                            <constraint firstItem="VpY-WJ-6gi" firstAttribute="top" secondItem="hYn-TQ-3gC" secondAttribute="bottom" id="EUX-CL-7uH"/>
-                            <constraint firstAttribute="trailing" secondItem="hYn-TQ-3gC" secondAttribute="trailing" id="x5j-FO-qDM"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="imageView" destination="hYn-TQ-3gC" id="TFG-Sl-Yc0"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Kka-dS-Vfo" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2384.8000000000002" y="-545.57721139430294"/>
-        </scene>
     </scenes>
 </document>
