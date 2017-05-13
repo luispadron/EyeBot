@@ -9,6 +9,15 @@
 import Foundation
 import Alamofire
 
+/// An error struct created when prediction fails for some reason which holds a message
+public struct PredictionError {
+    let message: String
+    
+    init(message: String) {
+        self.message = message
+    }
+}
+
 /// The probability for a predicted image
 public struct Probability {
     let label: String
@@ -55,6 +64,9 @@ open class EinsteinManager {
     /// General Image ID for classifying
     public static let generalImageId = "GeneralImageClassifier"
     
+    /// The message string which will determine an invalid access token
+    public static var invalidTokenMessage = "Invalid access token"
+    
     /// The header for the post request when predicting an image
     public var predictHeaders: HTTPHeaders = [
         "Cache-Control" : "no-cache",
@@ -75,15 +87,16 @@ open class EinsteinManager {
     }
     
     /// Typealias for the completion of a prediction call
-    public typealias PredictionCompletion = (Prediction?) -> Void
+    public typealias PredictionCompletion = (Prediction?, PredictionError?) -> Void
     
     
     public func predictImage(_ img: UIImage, withModelId modelId: String, completion: @escaping PredictionCompletion) {
-        guard let imgData = UIImagePNGRepresentation(img) else {
+        guard let imgData = UIImageJPEGRepresentation(img, 70) else {
             fatalError("Error converting image to png representation: \(img)")
         }
         
         let base64String = imgData.base64EncodedString()
+        
         guard let base64ImgData = base64String.data(using: .utf8, allowLossyConversion: false),
             let modelIdData = modelId.data(using: .utf8, allowLossyConversion: false)
         else {
@@ -123,7 +136,14 @@ open class EinsteinManager {
                     return
                 }
                 
-                 completion?(Prediction(withJSON: json))
+                var error: PredictionError? = nil
+                if let msg = json["message"] as? String, msg == EinsteinManager.invalidTokenMessage {
+                    error = PredictionError(message: "Invalid access token was returned from the server\n" +
+                                                    "Make sure token given to manager is correct.\n" +
+                                                    "Current token is: \(String(describing: self.token))")
+                }
+                
+                completion?(Prediction(withJSON: json), error)
             }
             
         case .failure(let error):
