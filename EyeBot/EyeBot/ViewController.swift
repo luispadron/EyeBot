@@ -126,7 +126,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             } 
         }
         else if mySettingsButtonArea.contains(touchPoint) {
-            showResultPopover(sender: self.view)
+            showResultPopover()
         }
     }
     
@@ -228,7 +228,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         let widthScreen = UIScreen.main.bounds.width
         // 10 + *30 = 40 as settings button width = *30
         // add a minimum of 30 space between buttons, more depending on screen
-        flashButton.frame = CGRect(x: 40 + max(30, 0.075 * widthScreen), y: 25, width: 30, height: 30)
+        flashButton.frame = CGRect(x: 40 + max(30, 0.075 * widthScreen),
+                                   y: 25, width: 30, height: 30)
         flashButton.clipsToBounds = true
         flashButton.setImage(#imageLiteral(resourceName: "flashButton"), for: .normal)
         previewLayer?.addSublayer(self.flashButton.layer)
@@ -244,11 +245,46 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         previewLayer?.addSublayer(self.captureButton.layer)
     }
     
-    func showResultPopover(sender: UIView) {
-        let dynamicView = UIView(frame: CGRect(x: 100, y: 200, width: 100, height: 100))
-        dynamicView.backgroundColor = UIColor.green
-        dynamicView.layer.cornerRadius = 25
-        dynamicView.layer.borderWidth = 2
-        sender.addSubview(dynamicView)
+    // Creates a frame with two background blurs
+    // frame tag - 100
+    // frame blur tag - 101
+    // background blur tag = 102
+    func showResultPopover() {
+        let widthScreen = UIScreen.main.bounds.width
+        let heightScreen = UIScreen.main.bounds.height
+        let widthFrame:CGFloat = widthScreen
+        let heightFrame:CGFloat = heightScreen * 0.8
+        
+        // Center our view horizontally (Currently x = 0)
+        // Place it 10% above the vertical center
+        let dynamicView = UIView(frame: CGRect(x: widthScreen / 2 - widthFrame / 2,
+                                               y: heightScreen - heightFrame,
+                                               width: widthFrame, height: heightFrame))
+        dynamicView.backgroundColor = UIColor.clear
+        dynamicView.tag = 100
+        
+        // Place the blur where the window is
+        let blurDynamicEffectView = UIVisualEffectView(effect:
+                                                        UIBlurEffect(style: UIBlurEffectStyle.light))
+        blurDynamicEffectView.frame = CGRect(x: widthScreen / 2 - widthFrame / 2,
+                                      y: heightScreen - heightFrame,
+                                      width: widthFrame, height: heightFrame)
+        blurDynamicEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurDynamicEffectView.layer.opacity = 0.8
+        blurDynamicEffectView.tag = 101
+        
+        // Place the background blur over the entirety of the screen
+        let blurBackgroundEffectView = UIVisualEffectView(effect:
+                                                            UIBlurEffect(style: UIBlurEffectStyle.dark))
+        blurBackgroundEffectView.frame = CGRect(x: 0, y: 0, width: widthScreen, height: heightScreen)
+        blurBackgroundEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurBackgroundEffectView.layer.opacity = 0.8
+        blurBackgroundEffectView.tag = 102
+        
+        // Background blur is lowest view
+        self.view.addSubview(blurBackgroundEffectView)
+        // Frame blur behind frame
+        self.view.addSubview(blurDynamicEffectView)
+        self.view.addSubview(dynamicView)
     }
 }
