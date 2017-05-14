@@ -269,7 +269,14 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         button.setTitle("Close Window",for: .normal)
         button.addTarget(self, action: #selector(resultsViewButtonClose), for: .touchUpInside)
         
+        let topPrediction = UILabel(frame: CGRect(x: widthFrame / 2 - 200 / 2, y: 100,
+                                                  width: 200, height: 50))
+        topPrediction.text = prediction.mostProbable.label
+        topPrediction.textAlignment = NSTextAlignment.center
+        topPrediction.textColor = UIColor.white
+        
         resultsView.addSubview(button)
+        resultsView.addSubview(topPrediction)
         
         // Frame blur behind frame
         self.view.addSubview(resultsView)
