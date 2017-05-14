@@ -263,6 +263,12 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         dynamicView.backgroundColor = UIColor.clear
         dynamicView.tag = 100
         
+        let button = UIButton(frame: CGRect(x: widthFrame / 2 - 150 / 2, y: 50, width: 150, height: 50))
+        button.setTitle("Close Window",for: .normal)
+        button.addTarget(self, action: #selector(dynamicViewButtonClose), for: .touchUpInside)
+        button.setTitleColor(UIColor.blue, for: .normal)
+        dynamicView.addSubview(button)
+        
         // Place the blur where the window is
         let blurDynamicEffectView = UIVisualEffectView(effect:
                                                         UIBlurEffect(style: UIBlurEffectStyle.light))
@@ -270,7 +276,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                                       y: heightScreen - heightFrame,
                                       width: widthFrame, height: heightFrame)
         blurDynamicEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        blurDynamicEffectView.layer.opacity = 0.8
+        blurDynamicEffectView.layer.opacity = 1
         blurDynamicEffectView.tag = 101
         
         // Place the background blur over the entirety of the screen
@@ -278,7 +284,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                                                             UIBlurEffect(style: UIBlurEffectStyle.dark))
         blurBackgroundEffectView.frame = CGRect(x: 0, y: 0, width: widthScreen, height: heightScreen)
         blurBackgroundEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        blurBackgroundEffectView.layer.opacity = 0.8
+        blurBackgroundEffectView.layer.opacity = 0.5
         blurBackgroundEffectView.tag = 102
         
         // Background blur is lowest view
@@ -286,5 +292,18 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         // Frame blur behind frame
         self.view.addSubview(blurDynamicEffectView)
         self.view.addSubview(dynamicView)
+    }
+    
+    func dynamicViewButtonClose(sender: UIButton!)
+    {
+        if let viewWithTag = self.view.viewWithTag(100) {
+            viewWithTag.removeFromSuperview()
+        }
+        if let viewWithTag = self.view.viewWithTag(101) {
+            viewWithTag.removeFromSuperview()
+        }
+        if let viewWithTag = self.view.viewWithTag(102) {
+            viewWithTag.removeFromSuperview()
+        }
     }
 }
