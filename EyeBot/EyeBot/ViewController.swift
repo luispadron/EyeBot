@@ -225,7 +225,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
     func addFlashButton() {
-        flashButton.frame = CGRect(x: 375, y: 25, width: 30, height: 30)
+        let widthScreen = UIScreen.main.bounds.width
+        // 10 + *30 = 40 as settings button width = *30
+        // add a minimum of 30 space between buttons, more depending on screen
+        flashButton.frame = CGRect(x: 40 + max(30, 0.075 * widthScreen), y: 25, width: 30, height: 30)
         flashButton.clipsToBounds = true
         flashButton.setImage(#imageLiteral(resourceName: "flashButton"), for: .normal)
         previewLayer?.addSublayer(self.flashButton.layer)
