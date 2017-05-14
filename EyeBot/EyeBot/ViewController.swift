@@ -126,7 +126,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             } 
         }
         else if mySettingsButtonArea.contains(touchPoint) {
-            showResultPopover()
         }
     }
     
@@ -142,6 +141,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 { (prediction, error) in
                     if error == nil {
                         print(prediction?.mostProbable.label ?? "No label predicted")
+                        self.showResultPopover(prediction: prediction!)
                     } else {
                         print(error!.message)
                     }
@@ -249,7 +249,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     // frame tag - 100
     // frame blur tag - 101
     // background blur tag = 102
-    func showResultPopover() {
+    func showResultPopover(prediction: Prediction) {
         let widthScreen = UIScreen.main.bounds.width
         let heightScreen = UIScreen.main.bounds.height
         let widthFrame:CGFloat = widthScreen
@@ -257,17 +257,17 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         // Center our view horizontally (Currently x = 0)
         // Place it 10% above the vertical center
-        let dynamicView = UIView(frame: CGRect(x: widthScreen / 2 - widthFrame / 2,
+        let resultsView = UIView(frame: CGRect(x: widthScreen / 2 - widthFrame / 2,
                                                y: heightScreen - heightFrame,
                                                width: widthFrame, height: heightFrame))
-        dynamicView.backgroundColor = UIColor.clear
-        dynamicView.tag = 100
+        resultsView.backgroundColor = UIColor.clear
+        resultsView.tag = 100
         
         let button = UIButton(frame: CGRect(x: widthFrame / 2 - 150 / 2, y: 50, width: 150, height: 50))
         button.setTitle("Close Window",for: .normal)
-        button.addTarget(self, action: #selector(dynamicViewButtonClose), for: .touchUpInside)
+        button.addTarget(self, action: #selector(resultsViewButtonClose), for: .touchUpInside)
         button.setTitleColor(UIColor.blue, for: .normal)
-        dynamicView.addSubview(button)
+        resultsView.addSubview(button)
         
         // Place the blur where the window is
         let blurDynamicEffectView = UIVisualEffectView(effect:
@@ -284,18 +284,19 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                                                             UIBlurEffect(style: UIBlurEffectStyle.dark))
         blurBackgroundEffectView.frame = CGRect(x: 0, y: 0, width: widthScreen, height: heightScreen)
         blurBackgroundEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        blurBackgroundEffectView.layer.opacity = 0.5
+        blurBackgroundEffectView.layer.opacity = 1
         blurBackgroundEffectView.tag = 102
         
         // Background blur is lowest view
         self.view.addSubview(blurBackgroundEffectView)
         // Frame blur behind frame
         self.view.addSubview(blurDynamicEffectView)
-        self.view.addSubview(dynamicView)
+        self.view.addSubview(resultsView)
     }
     
-    func dynamicViewButtonClose(sender: UIButton!)
+    func resultsViewButtonClose(sender: UIButton!)
     {
+        // Close all results windows
         if let viewWithTag = self.view.viewWithTag(100) {
             viewWithTag.removeFromSuperview()
         }
