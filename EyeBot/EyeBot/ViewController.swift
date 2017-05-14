@@ -246,65 +246,61 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
     // Creates a frame with two background blurs
-    // frame tag - 100
-    // frame blur tag - 101
-    // background blur tag = 102
+    // resultsView tag - 100
     func showResultPopover(prediction: Prediction) {
         let widthScreen = UIScreen.main.bounds.width
         let heightScreen = UIScreen.main.bounds.height
         let widthFrame:CGFloat = widthScreen
-        let heightFrame:CGFloat = heightScreen * 0.8
+        let heightFrame:CGFloat = heightScreen
         
-        // Center our view horizontally (Currently x = 0)
-        // Place it 10% above the vertical center
-        let resultsView = UIView(frame: CGRect(x: widthScreen / 2 - widthFrame / 2,
-                                               y: heightScreen - heightFrame,
-                                               width: widthFrame, height: heightFrame))
-        resultsView.backgroundColor = UIColor.clear
+        // Blur behind our window
+        let resultsView = UIVisualEffectView(effect:
+            UIBlurEffect(style: UIBlurEffectStyle.dark))
+        resultsView.frame = CGRect(x: widthScreen / 2 - widthFrame / 2,
+                                   y: heightScreen, width: widthFrame,
+                                   height: heightFrame)
+        resultsView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        resultsView.layer.opacity = 1
         resultsView.tag = 100
         
-        let button = UIButton(frame: CGRect(x: widthFrame / 2 - 150 / 2, y: 50, width: 150, height: 50))
+        // Button to close our window
+        let button = UIButton(frame: CGRect(x: widthFrame / 2 - 150 / 2, y: 50,
+                                            width: 150, height: 50))
         button.setTitle("Close Window",for: .normal)
         button.addTarget(self, action: #selector(resultsViewButtonClose), for: .touchUpInside)
-        button.setTitleColor(UIColor.blue, for: .normal)
+        
         resultsView.addSubview(button)
         
-        // Place the blur where the window is
-        let blurDynamicEffectView = UIVisualEffectView(effect:
-                                                        UIBlurEffect(style: UIBlurEffectStyle.light))
-        blurDynamicEffectView.frame = CGRect(x: widthScreen / 2 - widthFrame / 2,
-                                      y: heightScreen - heightFrame,
-                                      width: widthFrame, height: heightFrame)
-        blurDynamicEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        blurDynamicEffectView.layer.opacity = 1
-        blurDynamicEffectView.tag = 101
-        
-        // Place the background blur over the entirety of the screen
-        let blurBackgroundEffectView = UIVisualEffectView(effect:
-                                                            UIBlurEffect(style: UIBlurEffectStyle.dark))
-        blurBackgroundEffectView.frame = CGRect(x: 0, y: 0, width: widthScreen, height: heightScreen)
-        blurBackgroundEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        blurBackgroundEffectView.layer.opacity = 1
-        blurBackgroundEffectView.tag = 102
-        
-        // Background blur is lowest view
-        self.view.addSubview(blurBackgroundEffectView)
         // Frame blur behind frame
-        self.view.addSubview(blurDynamicEffectView)
         self.view.addSubview(resultsView)
+        //self.view.addSubview(resultsView)
+        
+        UIView.animate(withDuration: 0.4, delay: 0.0, options:[],
+                       animations: {
+                            resultsView.frame = CGRect(x: widthScreen / 2 - widthFrame / 2,
+                                                       y: heightScreen - heightFrame,
+                                                       width: widthFrame, height: heightFrame)
+                        
+                        }, completion: nil)
     }
     
+    // When the close button is tapped
     func resultsViewButtonClose(sender: UIButton!)
     {
-        // Close all results windows
+        let widthScreen = UIScreen.main.bounds.width
+        let heightScreen = UIScreen.main.bounds.height
+        let widthFrame:CGFloat = widthScreen
+        let heightFrame:CGFloat = heightScreen
+        
         if let viewWithTag = self.view.viewWithTag(100) {
-            viewWithTag.removeFromSuperview()
-        }
-        if let viewWithTag = self.view.viewWithTag(101) {
-            viewWithTag.removeFromSuperview()
-        }
-        if let viewWithTag = self.view.viewWithTag(102) {
-            viewWithTag.removeFromSuperview()
+            UIView.animate(withDuration: 0.4, delay: 0.0, options:[],
+                           animations: {
+                                // send to bottom, then remove the view.
+                                viewWithTag.frame = CGRect(x: widthScreen / 2 - widthFrame / 2,
+                                                       y: heightScreen,
+                                                       width: widthFrame, height: heightFrame)
+                            },
+                           completion: {(value:Bool) in viewWithTag.removeFromSuperview()})
         }
     }
 }
