@@ -242,22 +242,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
     func showResultPopover(sender: UIView) {
-        let vc = storyboard?.instantiateViewController(withIdentifier: "ResultsView") as! ResultViewController
-        vc.modalPresentationStyle = .popover
-        
-        if let popover = vc.popoverPresentationController {
-            
-            let viewForSource = sender
-            popover.sourceView = viewForSource
-            
-            // the position of the popover where it's showed
-            popover.sourceRect = viewForSource.bounds
-            
-            // the size you want to display
-            vc.preferredContentSize = CGSize(width:200,height:500)
-            popover.delegate = self as? UIPopoverPresentationControllerDelegate
-        }
-        
-        self.present(vc, animated: true, completion: nil)
+        let dynamicView = UIView(frame: CGRect(x: 100, y: 200, width: 100, height: 100))
+        dynamicView.backgroundColor = UIColor.green
+        dynamicView.layer.cornerRadius = 25
+        dynamicView.layer.borderWidth = 2
+        sender.addSubview(dynamicView)
     }
 }
