@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     let captureButton = UIButton(type: .custom)
     let settingsButton = UIButton(type: .custom)
     let flashButton = UIButton(type: .custom)
+    let touchButton = UIButton(type: .custom)
     
     let captureSession = AVCaptureSession()
     var previewLayer: CALayer!
@@ -154,6 +155,10 @@ class ViewController: UIViewController {
             let x = touchPoint.location(in: self.view).y / screenSize.height
             let y = touchPoint.location(in: self.view).x / screenSize.width
             
+            touchButton.frame = CGRect(x: touchPoint.location(in: self.view).x, y: touchPoint.location(in: self.view).y, width: 15, height: 15)
+            touchButton.setImage(#imageLiteral(resourceName: "touchButton"), for: .normal)
+            previewLayer.addSublayer(self.touchButton.layer)
+            
             let focusPoint = CGPoint(x: x,
                                      y: y)
             
@@ -173,6 +178,20 @@ class ViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let timeWhen = DispatchTime.now() + 0.5
+        DispatchQueue.main.asyncAfter(deadline: timeWhen, execute: {
+            self.touchButton.layer.removeFromSuperlayer()
+        })
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let timeWhen = DispatchTime.now() + 0.5
+        DispatchQueue.main.asyncAfter(deadline: timeWhen, execute: {
+            self.touchButton.layer.removeFromSuperlayer()
+        })
     }
 
     func getImageFromSampleBuffer(buffer: CMSampleBuffer) -> UIImage? {
