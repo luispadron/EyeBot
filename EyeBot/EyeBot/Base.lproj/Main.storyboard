@@ -32,7 +32,7 @@
         <!--Predictions-->
         <scene sceneID="HkR-2I-1tM">
             <objects>
-                <tableViewController storyboardIdentifier="predictionsTableViewController" title="Predictions" id="wqg-li-SaZ" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="predictionsTableViewController" title="Predictions" id="wqg-li-SaZ" customClass="PredictionsTableViewController" customModule="EyeBot" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="YAo-4T-pw4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -83,6 +83,13 @@
                             <outlet property="delegate" destination="wqg-li-SaZ" id="gTG-6l-tIj"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="LZ7-if-QOP">
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="bWn-US-TMc">
+                            <connections>
+                                <action selector="doneButtonPressed:" destination="wqg-li-SaZ" id="USb-95-efp"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bLe-EY-D2W" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="gOk-je-YBR">
@@ -91,7 +98,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1446" y="144"/>
+            <point key="canvasLocation" x="2384.8000000000002" y="143.47826086956522"/>
         </scene>
         <!--Prediction Detail View Controller-->
         <scene sceneID="j4g-2c-j4W">
@@ -123,7 +130,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EN9-yi-cHd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2189.5999999999999" y="142.57871064467767"/>
+            <point key="canvasLocation" x="3128.8000000000002" y="142.57871064467767"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="FUe-dm-nZb">
+            <objects>
+                <navigationController storyboardIdentifier="predictionsNavController" automaticallyAdjustsScrollViewInsets="NO" id="GPy-eF-fW1" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="0Qp-hH-7YU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="wqg-li-SaZ" kind="relationship" relationship="rootViewController" id="1DW-jK-qiy"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GPy-uU-p34" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1445.5999999999999" y="143.47826086956522"/>
         </scene>
     </scenes>
 </document>

@@ -129,6 +129,7 @@ class ViewController: UIViewController {
                 } 
             }
             else if mySettingsButtonArea.contains(touchPoint) {
+                self.settingsButtonWasPressed(button: self.settingsButton)
             }
         }
     }
@@ -200,6 +201,8 @@ class ViewController: UIViewController {
         }
     }
     
+    // MARK: Views
+    
     func addSettingsButton() {
         settingsButton.frame = CGRect(x: 20, y: 20, width: 30, height: 30)
         settingsButton.clipsToBounds = true
@@ -234,6 +237,16 @@ class ViewController: UIViewController {
             self.captureButton.center = CGPoint(x: widthScreen/2, y: heightScreen - 50)
         }, completion: nil)
     }
+    
+    // MARK: Actions
+    
+    func settingsButtonWasPressed(button: UIButton) {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let nav = storyBoard.instantiateViewController(withIdentifier: "predictionsNavController")
+        self.present(nav, animated: true, completion: nil)
+    }
+    
+    // MARK: Helper Methods
     
     // Creates a frame with two background blurs
     // resultsView tag - 100
@@ -329,8 +342,6 @@ class ViewController: UIViewController {
                             }, completion: nil)
         }
     }
-    
-    // MARK: Helper Methods
     
     fileprivate func makePrediction(forImage image: UIImage) {
         // Disable button while predicting

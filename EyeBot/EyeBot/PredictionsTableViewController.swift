@@ -91,5 +91,11 @@ class PredictionsTableViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: Actions
+    
+    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
+    }
+    
 
 }
