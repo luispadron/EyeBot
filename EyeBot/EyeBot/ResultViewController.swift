@@ -39,7 +39,7 @@ class ResultViewController: UIViewController {
             self.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             self.view.layer.opacity = 1
             
-            let loc = (heightScreen - 190 - widthScreen) / 2
+            let loc = (heightScreen - 120 - widthScreen) / 2
             
             // Image for view
             let logo = UIImage(imageLiteralResourceName: "captureButton")
@@ -47,18 +47,26 @@ class ResultViewController: UIViewController {
             logoView.frame = CGRect(x: widthScreen / 2 - 75 / 2, y: 25,
                                      width: 75, height: 75)
             
+            let foundLabel = UILabel(frame: CGRect(x: 10, y: 100 + loc,
+                                                   width: self.widthScreen - 20, height: 20))
+            foundLabel.text = "I think I found a..."
+            foundLabel.font = foundLabel.font.withSize(20)
+            foundLabel.textAlignment = NSTextAlignment.center
+            foundLabel.textColor = UIColor.white
+            
             // Label to display the top prediction
-            let topPrediction = UILabel(frame: CGRect(x: 0, y: 75 + loc,
-                                                      width: self.widthScreen, height: 50))
-            topPrediction.text = "..."
+            let topPrediction = UILabel(frame: CGRect(x: 10, y: 130 + loc,
+                                                      width: self.widthScreen - 20, height: 30))
+            topPrediction.text = "Ethernet Cable"
+            topPrediction.font = topPrediction.font.withSize(30)
             topPrediction.textAlignment = NSTextAlignment.center
             topPrediction.textColor = UIColor.white
             
             // Image for result
             let resultImage = UIImage(imageLiteralResourceName: "Ethernet Cable")
             let resultImageView = UIImageView(image: resultImage)
-            resultImageView.frame = CGRect(x: 10, y: 100 + loc,
-                                     width: widthScreen - 20, height: widthScreen - 20)
+            resultImageView.frame = CGRect(x: 40, y: 140 + loc,
+                                     width: widthScreen - 80, height: widthScreen - 80)
             
             // Dividing bar (just for aesthetics)
             let horizontalBar = UIView(frame: CGRect(x: 0, y: heightScreen - 50,
@@ -81,6 +89,7 @@ class ResultViewController: UIViewController {
             self.view.addSubview(resultsView)
             
             self.view.addSubview(logoView)
+            self.view.addSubview(foundLabel)
             self.view.addSubview(topPrediction)
             self.view.addSubview(resultImageView)
             self.view.addSubview(horizontalBar)
