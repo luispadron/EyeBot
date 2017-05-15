@@ -17,6 +17,7 @@
 		A0B21FD91EC9F95900FFB8C4 /* PredictionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B21FD81EC9F95900FFB8C4 /* PredictionTableViewCell.swift */; };
 		A0B21FDC1EC9FA7500FFB8C4 /* PredictionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B21FDB1EC9FA7500FFB8C4 /* PredictionDetailViewController.swift */; };
 		A0B21FDF1ECA134900FFB8C4 /* Predictions.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0B21FDD1ECA134900FFB8C4 /* Predictions.storyboard */; };
+		A0B21FE11ECA18F100FFB8C4 /* ActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B21FE01ECA18F100FFB8C4 /* ActivityView.swift */; };
 		A0E23F461EC5F071003F5844 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E23F451EC5F071003F5844 /* AppDelegate.swift */; };
 		A0E23F481EC5F071003F5844 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0E23F471EC5F071003F5844 /* ViewController.swift */; };
 		A0E23F4B1EC5F071003F5844 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A0E23F491EC5F071003F5844 /* Main.storyboard */; };
@@ -37,6 +38,7 @@
 		A0B21FD81EC9F95900FFB8C4 /* PredictionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredictionTableViewCell.swift; sourceTree = "<group>"; };
 		A0B21FDB1EC9FA7500FFB8C4 /* PredictionDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PredictionDetailViewController.swift; sourceTree = "<group>"; };
 		A0B21FDE1ECA134900FFB8C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Predictions.storyboard; sourceTree = "<group>"; };
+		A0B21FE01ECA18F100FFB8C4 /* ActivityView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityView.swift; sourceTree = "<group>"; };
 		A0E23F421EC5F071003F5844 /* EyeBot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EyeBot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0E23F451EC5F071003F5844 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A0E23F471EC5F071003F5844 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -108,9 +110,10 @@
 		A0E23F441EC5F071003F5844 /* EyeBot */ = {
 			isa = PBXGroup;
 			children = (
+				A0E23F451EC5F071003F5844 /* AppDelegate.swift */,
 				A0B21FCF1EC9EB4C00FFB8C4 /* Model */,
 				A0EA9DFF1EC6105200BDF946 /* API */,
-				A0E23F451EC5F071003F5844 /* AppDelegate.swift */,
+				A0B21FE01ECA18F100FFB8C4 /* ActivityView.swift */,
 				A0E23F471EC5F071003F5844 /* ViewController.swift */,
 				22C69C3C1EC7BA2F00B77D85 /* ResultViewController.swift */,
 				A0B21FDA1EC9F95F00FFB8C4 /* Prediction History */,
@@ -272,6 +275,7 @@
 				A0EA9DFE1EC6104C00BDF946 /* EinsteinManager.swift in Sources */,
 				A0B21FD11EC9EBE800FFB8C4 /* PredictionError.swift in Sources */,
 				A0B21FD31EC9EBF100FFB8C4 /* Prediction.swift in Sources */,
+				A0B21FE11ECA18F100FFB8C4 /* ActivityView.swift in Sources */,
 				A0B21FD51EC9EBFC00FFB8C4 /* Probability.swift in Sources */,
 				A0B21FD91EC9F95900FFB8C4 /* PredictionTableViewCell.swift in Sources */,
 				A0B21FDC1EC9FA7500FFB8C4 /* PredictionDetailViewController.swift in Sources */,
