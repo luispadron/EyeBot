@@ -9,5 +9,12 @@
 import RealmSwift
 
 class StoredPrediction: Object {
+    dynamic var label: String = ""
+    dynamic var probability: Double = 0.0
     
+    convenience init(label: String, probability: Double) {
+        self.init()
+        self.label = label
+        self.probability = probability
+    }
 }

@@ -9,52 +9,6 @@
 import Foundation
 import Alamofire
 
-/// An error struct created when prediction fails for some reason which holds a message
-public struct PredictionError {
-    let message: String
-    
-    init(message: String) {
-        self.message = message
-    }
-}
-
-/// The probability for a predicted image
-public struct Probability {
-    let label: String
-    let percent: Double
-    
-    init(label: String, percent: Double) {
-        self.label = label
-        self.percent = percent
-    }
-}
-
-/// Prediction struct, returned in a prediction call when using EinsteinManager
-public struct Prediction {
-    let mostProbable: Probability
-    let leastProbable: Probability
-    let allProbabilities: [Probability]
-
-    init?(withJSON json: [String : Any]) {
-        guard let probabiltiesJSON = json["probabilities"] as? [AnyObject] else {
-            return nil
-        }
-        
-        var probabilities = [Probability]()
-        
-        for probJSON in probabiltiesJSON {
-            let label = probJSON.value(forKey: "label") as! String
-            let percent = probJSON.value(forKey: "probability") as! Double
-            probabilities.append(Probability(label: label, percent: percent * 100))
-        }
-        
-        probabilities.sort { $0.percent > $1.percent }
-        self.mostProbable = probabilities.first!
-        self.leastProbable = probabilities.last!
-        self.allProbabilities = probabilities
-    }
-}
-
 /// The EinsteinManager handles all the API calls to the Einstein image prediction service
 /// It is a light wrapper over SalesforceEinsteinVision
 open class EinsteinManager {
