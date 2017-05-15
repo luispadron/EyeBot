@@ -267,8 +267,11 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         let button = UIButton(frame: CGRect(x: widthFrame / 2 - 150 / 2, y: 50,
                                             width: 150, height: 50))
         button.setTitle("Close Window",for: .normal)
+        button.setTitleColor(UIColor(red: 0.0, green:122.0/255.0,
+                                     blue:1.0, alpha:1.0), for: .normal)
         button.addTarget(self, action: #selector(resultsViewButtonClose), for: .touchUpInside)
         
+        // Label to display the top prediction
         let topPrediction = UILabel(frame: CGRect(x: widthFrame / 2 - 200 / 2, y: 100,
                                                   width: 200, height: 50))
         topPrediction.text = prediction.mostProbable.label
