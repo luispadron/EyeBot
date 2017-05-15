@@ -141,7 +141,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             if let image = self.getImageFromSampleBuffer(buffer: sampleBuffer) {
                 takenPhoto = image
                 EinsteinManager.shared.predictImage(image,
-                                                    withModelId: EinsteinManager.generalImageId,
+                                                    withModelId: "2KRSUDVHTRUGGC7AX5RAVS4LE4",
                                                     completion:
                 { (prediction, error) in
                     if error == nil {
@@ -247,7 +247,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         captureButton.center = CGPoint(x: widthScreen / 2, y: heightScreen + 38)
         captureButton.clipsToBounds = true
         captureButton.setImage(#imageLiteral(resourceName: "captureButton"), for: .normal)
-        captureButton.tag = 1
         previewLayer?.addSublayer(self.captureButton.layer)
         
         // Animate to slide into the screen
