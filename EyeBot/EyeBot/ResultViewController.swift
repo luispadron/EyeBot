@@ -74,15 +74,28 @@ class ResultViewController: UIViewController {
             horizontalBar.backgroundColor = UIColor.white
             horizontalBar.layer.opacity = 0.25
             
-            // Button to close our window
-            let closeButton = UIButton(frame: CGRect(x: widthScreen / 2 - 150 / 2,
-                                                     y: heightScreen - 40,
-                                                     width: 150, height: 30))
-            closeButton.setTitle("Close Window",for: .normal)
-            closeButton.setTitleColor(UIColor(red: 0.0, green:122.0/255.0,
-                                              blue:1.0, alpha:1.0), for: .normal)
-            closeButton.setTitleColor(UIColor.white, for: .highlighted)
-            closeButton.addTarget(self, action: #selector(resultsViewButtonClose),
+            let verticalBar = UIView(frame: CGRect(x: widthScreen / 2, y: heightScreen - 50,
+                                                   width: 1, height: 50))
+            verticalBar.backgroundColor = UIColor.white
+            verticalBar.layer.opacity = 0.25
+            
+            // Button to denote our prediction was wrong
+            let wrongButton = UIButton(frame: CGRect(x:0, y: heightScreen - 50,
+                                                     width: widthScreen / 2, height: 50))
+            wrongButton.setTitle("Wrong", for: .normal)
+            wrongButton.setTitleColor(UIColor.red, for: .normal)
+            wrongButton.setTitleColor(UIColor.white, for: .highlighted)
+            wrongButton.addTarget(self, action: #selector(wrongButtonPressed),
+                                  for: .touchUpInside)
+            
+            // Button to denote our prediction is right
+            let correctButton = UIButton(frame: CGRect(x:widthScreen / 2, y: heightScreen - 50,
+                                                     width: widthScreen / 2, height: 50))
+            correctButton.setTitle("Correct", for: .normal)
+            correctButton.setTitleColor(UIColor(red: 0, green: 122.0 / 255.0,
+                                                blue: 1, alpha: 1), for: .normal)
+            correctButton.setTitleColor(UIColor.white, for: .highlighted)
+            correctButton.addTarget(self, action: #selector(correctButtonPressed),
                                   for: .touchUpInside)
             
             // Frame blur behind frame contents
@@ -93,7 +106,9 @@ class ResultViewController: UIViewController {
             self.view.addSubview(topPrediction)
             self.view.addSubview(resultImageView)
             self.view.addSubview(horizontalBar)
-            self.view.addSubview(closeButton)
+            self.view.addSubview(verticalBar)
+            self.view.addSubview(wrongButton)
+            self.view.addSubview(correctButton)
             
             // Slide down results view
             UIView.animate(withDuration: 0.5, delay: 0.6, options: [],
@@ -106,8 +121,17 @@ class ResultViewController: UIViewController {
         }
     }
     
+    func wrongButtonPressed(sender: UIButton) {
+        resultsViewClose()
+    }
+    
+    func correctButtonPressed(sender: UIButton)
+    {
+        resultsViewClose()
+    }
+    
     // When the close button is tapped
-    func resultsViewButtonClose(sender: UIButton!) {
+    func resultsViewClose() {
         UIView.animate(withDuration: 0.4, delay: 0.0, options: [],
                        animations: {
                             self.view.frame = CGRect(x: 0, y: -self.heightScreen,
