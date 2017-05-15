@@ -244,7 +244,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         let widthScreen = UIScreen.main.bounds.width
         let heightScreen = UIScreen.main.bounds.height
         
-        // Set below the screen (for animating later
+        // Set below the screen (for animating later)
         captureButton.frame = CGRect(x: widthScreen/2, y: heightScreen + 38, width: 75, height: 75)
         captureButton.center = CGPoint(x: widthScreen / 2, y: heightScreen + 38)
         captureButton.clipsToBounds = true
