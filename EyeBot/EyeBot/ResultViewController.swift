@@ -8,5 +8,5 @@
 
 import UIKit
 
-class ResultViewPopover: UIView {
+class ResultViewController: UIViewController {
 }

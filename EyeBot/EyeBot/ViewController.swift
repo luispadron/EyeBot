@@ -257,6 +257,9 @@ class ViewController: UIViewController {
     // Creates a frame with two background blurs
     // resultsView tag - 100
     func showResultPopover(prediction: Prediction) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "resultViewController")
+        self.present(vc, animated: true, completion: nil)
         let widthScreen = UIScreen.main.bounds.width
         let heightScreen = UIScreen.main.bounds.height
         let widthFrame:CGFloat = widthScreen
@@ -272,6 +275,17 @@ class ViewController: UIViewController {
         resultsView.layer.opacity = 1
         resultsView.tag = 100
         
+        let image = UIImage(imageLiteralResourceName: "Ethernet Cable")
+        let imageView = UIImageView(image: image)
+        
+        // Label to display the top prediction
+        let topPrediction = UILabel(frame: CGRect(x: widthFrame / 2 - widthFrame / 2, y: 100,
+                                                  width: widthFrame, height: 50))
+        topPrediction.text = prediction.mostProbable.label
+        topPrediction.textAlignment = NSTextAlignment.center
+        topPrediction.textColor = UIColor.white
+        
+        // Dividing bar (just for aesthetics)
         let horizontalBar = UIView(frame: CGRect(x: 0, y: heightFrame - 50,
                                                  width: widthFrame, height: 1))
         horizontalBar.backgroundColor = UIColor.white
@@ -285,16 +299,10 @@ class ViewController: UIViewController {
         closeButton.setTitleColor(UIColor.white, for: .highlighted)
         closeButton.addTarget(self, action: #selector(resultsViewButtonClose), for: .touchUpInside)
         
-        // Label to display the top prediction
-        let topPrediction = UILabel(frame: CGRect(x: widthFrame / 2 - widthFrame / 2, y: 100,
-                                                  width: widthFrame, height: 50))
-        topPrediction.text = prediction.mostProbable.label
-        topPrediction.textAlignment = NSTextAlignment.center
-        topPrediction.textColor = UIColor.white
-        
+        resultsView.addSubview(imageView)
+        resultsView.addSubview(topPrediction)
         resultsView.addSubview(horizontalBar)
         resultsView.addSubview(closeButton)
-        resultsView.addSubview(topPrediction)
         
         // Frame blur behind frame
         self.view.addSubview(resultsView)
