@@ -223,7 +223,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
     func addSettingsButton() {
-        settingsButton.frame = CGRect(x: 10, y: 20, width: 30, height: 30)
+        settingsButton.frame = CGRect(x: 20, y: 20, width: 30, height: 30)
         settingsButton.clipsToBounds = true
         settingsButton.setImage(#imageLiteral(resourceName: "settingsButton"), for: .normal)
         previewLayer?.addSublayer(self.settingsButton.layer)
@@ -233,8 +233,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         let widthScreen = UIScreen.main.bounds.width
         // 10 + *30 = 40 as settings button width = *30
         // add a minimum of 30 space between buttons, more depending on screen
-        flashButton.frame = CGRect(x: 40 + max(30, 0.075 * widthScreen),
-                                   y: 25, width: 30, height: 30)
+        flashButton.frame = CGRect(x: widthScreen - 60,
+                                   y: 20, width: 30, height: 30)
         flashButton.clipsToBounds = true
         flashButton.setImage(#imageLiteral(resourceName: "flashButton"), for: .normal)
         previewLayer?.addSublayer(self.flashButton.layer)
