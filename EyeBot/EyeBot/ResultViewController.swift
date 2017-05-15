@@ -63,9 +63,10 @@ class ResultViewController: UIViewController {
             topPrediction.textColor = UIColor.white
             
             // Image for result
-            let resultImage = UIImage(imageLiteralResourceName: "Ethernet Cable")
+            let resultImage = UIImage(imageLiteralResourceName:
+                                        (prediction?.mostProbable.label as String!))
             let resultImageView = UIImageView(image: resultImage)
-            resultImageView.frame = CGRect(x: 40, y: 140 + loc,
+            resultImageView.frame = CGRect(x: 40, y: 160 + loc,
                                      width: widthScreen - 80, height: widthScreen - 80)
             
             // Dividing bar (just for aesthetics)
