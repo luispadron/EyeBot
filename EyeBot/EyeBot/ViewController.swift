@@ -21,6 +21,8 @@ class ViewController: UIViewController {
     
     var captureDevice:AVCaptureDevice!
     
+    var hasPreparedCamera = false
+    
     var takePhoto = false
     
     override func viewDidLoad() {
@@ -29,7 +31,11 @@ class ViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        prepareCamera()
+        
+        if !hasPreparedCamera {
+            prepareCamera()
+            hasPreparedCamera = true
+        }
     }
     
     override func didReceiveMemoryWarning() {

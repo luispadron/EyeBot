@@ -14,6 +14,12 @@ class StoredPrediction: Object {
     dynamic var label: String = ""
     dynamic var probability: Double = 0.0
     
+    var image: UIImage? {
+        get {
+            return UIImage(data: self.imageData)
+        }
+    }
+    
     convenience init?(image: UIImage, label: String, probability: Double) {
         self.init()
         
