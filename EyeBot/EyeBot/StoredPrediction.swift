@@ -9,12 +9,24 @@
 import RealmSwift
 
 class StoredPrediction: Object {
+    dynamic var id: String = UUID().uuidString
+    dynamic var imageData: Data = Data()
     dynamic var label: String = ""
     dynamic var probability: Double = 0.0
     
-    convenience init(label: String, probability: Double) {
+    convenience init?(image: UIImage, label: String, probability: Double) {
         self.init()
+        
+        guard let img = UIImageJPEGRepresentation(image, 1.0) else {
+            return nil
+        }
+        
+        self.imageData = img
         self.label = label
         self.probability = probability
+    }
+    
+    override class func primaryKey() -> String? {
+        return "id"
     }
 }

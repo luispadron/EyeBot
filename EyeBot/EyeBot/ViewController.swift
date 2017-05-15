@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import RealmSwift
 
 class ViewController: UIViewController {
     
@@ -332,21 +333,40 @@ class ViewController: UIViewController {
     // MARK: Helper Methods
     
     fileprivate func makePrediction(forImage image: UIImage) {
+        // Disable button while predicting
+        self.captureButton.isEnabled = false
+        // Make prediction
         EinsteinManager.shared.predictImage(image,
                                             withModelId: "2KRSUDVHTRUGGC7AX5RAVS4LE4",
-                                            completion: handleImagePrediction(prediction:error:))
-
-    }
-    
-    fileprivate func handleImagePrediction(prediction: Prediction?, error: PredictionError?) {
-        guard let pred = prediction else {
-            if let err = error {
-                print("Error getting image prediction: \(err.message)")
+                                            completion:
+        { (prediction, error) in
+            guard let pred = prediction else {
+                if let err = error {
+                    print("Error getting image prediction: \(err.message)")
+                }
+                return
             }
-            return
-        }
-        
-        self.showResultPopover(prediction: pred)
+            
+            // Save to realm and show popover
+            
+            if let storedPrediction = StoredPrediction(image: image,
+                                                       label: pred.mostProbable.label,
+                                                       probability: pred.mostProbable.percent) {
+                let realm = try! Realm()
+                try! realm.write {
+                    realm.create(StoredPrediction.self, value: storedPrediction, update: false)
+                }
+            } else {
+                print("Error creating stored prediction and saving to Realm....")
+            }
+            
+            // Enable button again
+            self.captureButton.isEnabled = true
+            
+            // Show results VC
+            self.showResultPopover(prediction: pred)
+        })
+
     }
 }
 
@@ -361,6 +381,8 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             
             if let image = self.getImageFromSampleBuffer(buffer: sampleBuffer) {
                 makePrediction(forImage: image)
+                
+                // Save the image to Realm
             }
         }
     }
