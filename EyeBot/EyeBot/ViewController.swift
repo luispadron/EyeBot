@@ -277,21 +277,29 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         resultsView.layer.opacity = 1
         resultsView.tag = 100
         
+        let horizontalBar = UIView(frame: CGRect(x: 0, y: heightFrame - 50,
+                                                 width: widthFrame, height: 1))
+        horizontalBar.backgroundColor = UIColor.white
+        horizontalBar.layer.opacity = 0.25
+        
+        
         // Button to close our window
-        let button = UIButton(frame: CGRect(x: widthFrame / 2 - 150 / 2, y: 50,
-                                            width: 150, height: 50))
-        button.setTitle("Close Window",for: .normal)
-        button.setTitleColor(UIColor(red: 0.0, green:122.0/255.0, blue:1.0, alpha:1.0), for: .normal)
-        button.addTarget(self, action: #selector(resultsViewButtonClose), for: .touchUpInside)
+        let closeButton = UIButton(frame: CGRect(x: widthFrame / 2 - 150 / 2, y: heightFrame - 40,
+                                            width: 150, height: 30))
+        closeButton.setTitle("Close Window",for: .normal)
+        closeButton.setTitleColor(UIColor(red: 0.0, green:122.0/255.0, blue:1.0, alpha:1.0), for: .normal)
+        closeButton.setTitleColor(UIColor.white, for: .highlighted)
+        closeButton.addTarget(self, action: #selector(resultsViewButtonClose), for: .touchUpInside)
         
         // Label to display the top prediction
-        let topPrediction = UILabel(frame: CGRect(x: widthFrame / 2 - 200 / 2, y: 100,
-                                                  width: 200, height: 50))
+        let topPrediction = UILabel(frame: CGRect(x: widthFrame / 2 - widthFrame / 2, y: 100,
+                                                  width: widthFrame, height: 50))
         topPrediction.text = prediction.mostProbable.label
         topPrediction.textAlignment = NSTextAlignment.center
         topPrediction.textColor = UIColor.white
         
-        resultsView.addSubview(button)
+        resultsView.addSubview(horizontalBar)
+        resultsView.addSubview(closeButton)
         resultsView.addSubview(topPrediction)
         
         // Frame blur behind frame
