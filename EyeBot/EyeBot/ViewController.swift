@@ -92,40 +92,45 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
     func actionButtonsPressed(touch: UITapGestureRecognizer) {
-        let touchPoint = touch.location(in: self.view)
-        let myCaptureButtonArea = CGRect(x: captureButton.frame.origin.x,
-                                         y: captureButton.frame.origin.y,
-                                         width: captureButton.frame.width,
-                                         height: captureButton.frame.height)
-        
-        let myFlashButtonArea = CGRect(x: flashButton.frame.origin.x,
-                                       y: flashButton.frame.origin.y,
-                                       width: flashButton.frame.width,
-                                       height: flashButton.frame.height)
-        
-        let mySettingsButtonArea = CGRect(x: settingsButton.frame.origin.x,
-                                          y: settingsButton.frame.origin.y,
-                                          width: settingsButton.frame.width,
-                                          height: settingsButton.frame.height)
-        
-        if myCaptureButtonArea.contains(touchPoint) {
-            takePhoto = true
-        } else if myFlashButtonArea.contains(touchPoint) {
-            if let device = captureDevice {
-                do {
-                    try device.lockForConfiguration()
-                    if device.isTorchActive {
-                        device.torchMode = AVCaptureTorchMode.off
-                    } else {
-                        device.torchMode = AVCaptureTorchMode.on
-                    }
-                }
-                catch {
-                    print(error.localizedDescription)
-                }
-            } 
+        // If the results screen is open, do not accept input.
+        if let _ = self.view.viewWithTag(100) {
         }
-        else if mySettingsButtonArea.contains(touchPoint) {
+        else {
+            let touchPoint = touch.location(in: self.view)
+            let myCaptureButtonArea = CGRect(x: captureButton.frame.origin.x,
+                                             y: captureButton.frame.origin.y,
+                                             width: captureButton.frame.width,
+                                             height: captureButton.frame.height)
+            
+            let myFlashButtonArea = CGRect(x: flashButton.frame.origin.x,
+                                           y: flashButton.frame.origin.y,
+                                           width: flashButton.frame.width,
+                                           height: flashButton.frame.height)
+            
+            let mySettingsButtonArea = CGRect(x: settingsButton.frame.origin.x,
+                                              y: settingsButton.frame.origin.y,
+                                              width: settingsButton.frame.width,
+                                              height: settingsButton.frame.height)
+            
+            if myCaptureButtonArea.contains(touchPoint) {
+                takePhoto = true
+            } else if myFlashButtonArea.contains(touchPoint) {
+                if let device = captureDevice {
+                    do {
+                        try device.lockForConfiguration()
+                        if device.isTorchActive {
+                            device.torchMode = AVCaptureTorchMode.off
+                        } else {
+                            device.torchMode = AVCaptureTorchMode.on
+                        }
+                    }
+                    catch {
+                        print(error.localizedDescription)
+                    }
+                } 
+            }
+            else if mySettingsButtonArea.contains(touchPoint) {
+            }
         }
     }
     
@@ -267,8 +272,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         let button = UIButton(frame: CGRect(x: widthFrame / 2 - 150 / 2, y: 50,
                                             width: 150, height: 50))
         button.setTitle("Close Window",for: .normal)
-        button.setTitleColor(UIColor(red: 0.0, green:122.0/255.0,
-                                     blue:1.0, alpha:1.0), for: .normal)
+        button.setTitleColor(UIColor(red: 0.0, green:122.0/255.0, blue:1.0, alpha:1.0), for: .normal)
         button.addTarget(self, action: #selector(resultsViewButtonClose), for: .touchUpInside)
         
         // Label to display the top prediction
