@@ -276,7 +276,7 @@ class ViewController: UIViewController {
         self.captureButton.isEnabled = false
         // Make prediction
         EinsteinManager.shared.predictImage(image,
-                                            withModelId: "2KRSUDVHTRUGGC7AX5RAVS4LE4",
+                                            withModelId: "DYWKGF7KFZRQMZPOAX34YAYDX4",
                                             completion:
         { (prediction, error) in
             guard let pred = prediction else {
