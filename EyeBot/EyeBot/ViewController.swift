@@ -255,12 +255,7 @@ class ViewController: UIViewController {
         captureButton.setImage(#imageLiteral(resourceName: "captureButton"), for: .normal)
         previewLayer?.addSublayer(self.captureButton.layer)
         
-        // Animate to slide into the screen
-        UIView.animate(withDuration: 0.4, delay: 0.5, options: [], animations: {
-            self.captureButton.frame = CGRect(x: widthScreen / 2, y: heightScreen - 50,
-                                         width: 75, height: 75)
-            self.captureButton.center = CGPoint(x: widthScreen/2, y: heightScreen - 50)
-        }, completion: nil)
+        showEye()
     }
     
     // MARK: Actions
@@ -284,25 +279,13 @@ class ViewController: UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let nav = storyBoard.instantiateViewController(withIdentifier: "resultViewController")
         let vc = nav.childViewControllers.first
-        nav.modalTransitionStyle = .crossDissolve
+        nav.view.backgroundColor = UIColor.clear
         nav.modalPresentationStyle = .overCurrentContext
         vc?.modalPresentationStyle = .overCurrentContext
-        vc?.modalTransitionStyle = .crossDissolve
         self.definesPresentationContext = true
         self.present(nav, animated: false, completion: nil)
         
-        let widthScreen = UIScreen.main.bounds.width
-        let heightScreen = UIScreen.main.bounds.height
-        
-        // Hide the capture button
-        UIView.animate(withDuration: 0.4, delay: 0.0, options: [],
-                       animations: {
-                            self.captureButton.frame = CGRect(x:widthScreen / 2,
-                                                              y: heightScreen + 38,
-                                                              width: 75, height: 75)
-                            self.captureButton.center = CGPoint(x: widthScreen / 2,
-                                                                y: heightScreen + 38)
-                        }, completion: nil)
+        hideEye()
     }
     
     fileprivate func makePrediction(forImage image: UIImage) {
@@ -340,6 +323,31 @@ class ViewController: UIViewController {
             self.showResultPopover(prediction: pred)
         })
 
+    }
+    
+    func showEye() {
+        let widthScreen = UIScreen.main.bounds.width
+        let heightScreen = UIScreen.main.bounds.height
+        
+        // Animate to slide into the screen
+        UIView.animate(withDuration: 0.4, delay: 0.5, options: [], animations: {
+            self.captureButton.frame = CGRect(x: widthScreen / 2, y: heightScreen - 50,
+                                              width: 75, height: 75)
+            self.captureButton.center = CGPoint(x: widthScreen/2, y: heightScreen - 50)
+        }, completion: nil)
+    }
+    
+    func hideEye() {
+        let widthScreen = UIScreen.main.bounds.width
+        let heightScreen = UIScreen.main.bounds.height
+        
+        // Animate to slide into the screen
+        UIView.animate(withDuration: 0.4, delay: 0.5, options: [], animations: {
+            self.captureButton.frame = CGRect(x: widthScreen / 2, y: heightScreen + 38,
+                                              width: 75, height: 75)
+            self.captureButton.center = CGPoint(x: widthScreen/2, y: heightScreen + 38)
+        }, completion: nil)
+        
     }
 }
 
