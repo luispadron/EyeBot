@@ -250,6 +250,8 @@ class ViewController: UIViewController {
         let storyBoard = UIStoryboard(name: "Predictions", bundle: nil)
         let nav = storyBoard.instantiateViewController(withIdentifier: "predictionsNavController")
         let vc = nav.childViewControllers.first
+        nav.modalTransitionStyle = .crossDissolve
+        nav.modalPresentationStyle = .overCurrentContext
         vc?.modalPresentationStyle = .overCurrentContext
         vc?.modalTransitionStyle = .crossDissolve
         self.definesPresentationContext = true
