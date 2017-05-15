@@ -231,8 +231,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     func addFlashButton() {
         let widthScreen = UIScreen.main.bounds.width
-        // 10 + *30 = 40 as settings button width = *30
-        // add a minimum of 30 space between buttons, more depending on screen
         flashButton.frame = CGRect(x: widthScreen - 60,
                                    y: 20, width: 30, height: 30)
         flashButton.clipsToBounds = true
@@ -304,18 +302,23 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         // Frame blur behind frame
         self.view.addSubview(resultsView)
-        //self.view.addSubview(resultsView)
         
-        UIView.animate(withDuration: 0.4, delay: 0.0, options:[],
+        // Hide the capture button
+        UIView.animate(withDuration: 0.4, delay: 0.0, options: [],
                        animations: {
-                            resultsView.frame = CGRect(x: widthScreen / 2 - widthFrame / 2,
-                                                       y: heightScreen - heightFrame,
-                                                       width: widthFrame, height: heightFrame)
                             self.captureButton.frame = CGRect(x:widthScreen / 2,
                                                               y: heightScreen + 38,
                                                               width: 75, height: 75)
                             self.captureButton.center = CGPoint(x: widthScreen / 2,
                                                                 y: heightScreen + 38)
+                        }, completion: nil)
+        
+        // Slide down results view, hide capture button
+        UIView.animate(withDuration: 0.5, delay: 0.6, options: [],
+                       animations: {
+                            resultsView.frame = CGRect(x: widthScreen / 2 - widthFrame / 2,
+                                                       y: heightScreen - heightFrame,
+                                                       width: widthFrame, height: heightFrame)
                         }, completion: nil)
     }
     
@@ -328,15 +331,16 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         let heightFrame:CGFloat = heightScreen
         
         if let viewWithTag = self.view.viewWithTag(100) {
+            // Hide the results view
             UIView.animate(withDuration: 0.4, delay: 0.0, options: [],
                            animations: {
-                                // send to bottom, then remove the view.
                                 viewWithTag.frame = CGRect(x: widthScreen / 2 - widthFrame / 2,
                                                            y: -heightFrame,
                                                            width: widthFrame, height: heightFrame)
                             },
                            completion: {(value:Bool) in viewWithTag.removeFromSuperview()})
             
+            // Show the capture button
             UIView.animate(withDuration: 0.4, delay: 0.4, options: [],
                            animations: {
                                     self.captureButton.frame =
