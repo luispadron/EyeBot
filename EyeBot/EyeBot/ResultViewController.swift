@@ -12,6 +12,8 @@ class ResultViewController: UIViewController {
     let widthScreen = UIScreen.main.bounds.width
     let heightScreen = UIScreen.main.bounds.height
     
+    
+    
     var loaded : Bool = false
     
     override func viewDidLoad() {
@@ -92,6 +94,8 @@ class ResultViewController: UIViewController {
                                                     height: self.heightScreen)
                         }
         }, completion: {(value:Bool) in self.dismiss(animated: false)})
+        
+        (presentingViewController as? ViewController)?.showEye()
     }
     
 }
