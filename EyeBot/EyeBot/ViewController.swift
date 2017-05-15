@@ -243,11 +243,20 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     func addCaptureButton() {
         let widthScreen = UIScreen.main.bounds.width
         let heightScreen = UIScreen.main.bounds.height
-        captureButton.frame = CGRect(x: widthScreen/2, y: heightScreen-50, width: 75, height: 75)
-        captureButton.center = CGPoint(x: widthScreen/2, y: heightScreen-50)
+        
+        // Set below the screen (for animating later
+        captureButton.frame = CGRect(x: widthScreen/2, y: heightScreen + 38, width: 75, height: 75)
+        captureButton.center = CGPoint(x: widthScreen / 2, y: heightScreen + 38)
         captureButton.clipsToBounds = true
         captureButton.setImage(#imageLiteral(resourceName: "captureButton"), for: .normal)
         previewLayer?.addSublayer(self.captureButton.layer)
+        
+        // Animate to slide into the screen
+        UIView.animate(withDuration: 0.4, delay: 0.5, options: [], animations: {
+            self.captureButton.frame = CGRect(x: widthScreen / 2, y: heightScreen - 50,
+                                         width: 75, height: 75)
+            self.captureButton.center = CGPoint(x: widthScreen/2, y: heightScreen - 50)
+        }, completion: nil)
     }
     
     // Creates a frame with two background blurs
