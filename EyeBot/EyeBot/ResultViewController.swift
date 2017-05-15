@@ -55,9 +55,17 @@ class ResultViewController: UIViewController {
             foundLabel.textColor = UIColor.white
             
             // Label to display the top prediction
+            let vowels: [String] = ["a", "e", "i", "o", "u"]
             let topPrediction = UILabel(frame: CGRect(x: 10, y: 130 + loc,
                                                       width: self.widthScreen - 20, height: 30))
             topPrediction.text = prediction?.mostProbable.label as String?
+            
+            for vowel in vowels {
+                if topPrediction.text!.lowercased().hasPrefix(vowel) {
+                    foundLabel.text = "I think I found an..."
+                }
+            }
+            
             topPrediction.font = topPrediction.font.withSize(30)
             topPrediction.textAlignment = NSTextAlignment.center
             topPrediction.textColor = UIColor.white
