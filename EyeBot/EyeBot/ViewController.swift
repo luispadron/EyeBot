@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     let captureButton = UIButton(type: .custom)
     let settingsButton = UIButton(type: .custom)
     let flashButton = UIButton(type: .custom)
+    let touchButton = UIButton(type: .custom)
     
     let captureSession = AVCaptureSession()
     var previewLayer: CALayer!
@@ -154,6 +155,10 @@ class ViewController: UIViewController {
             let x = touchPoint.location(in: self.view).y / screenSize.height
             let y = touchPoint.location(in: self.view).x / screenSize.width
             
+            touchButton.frame = CGRect(x: touchPoint.location(in: self.view).x, y: touchPoint.location(in: self.view).y, width: 15, height: 15)
+            touchButton.setImage(#imageLiteral(resourceName: "touchButton"), for: .normal)
+            previewLayer.addSublayer(self.touchButton.layer)
+            
             let focusPoint = CGPoint(x: x,
                                      y: y)
             
@@ -173,6 +178,20 @@ class ViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let timeWhen = DispatchTime.now() + 0.5
+        DispatchQueue.main.asyncAfter(deadline: timeWhen, execute: {
+            self.touchButton.layer.removeFromSuperlayer()
+        })
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let timeWhen = DispatchTime.now() + 0.5
+        DispatchQueue.main.asyncAfter(deadline: timeWhen, execute: {
+            self.touchButton.layer.removeFromSuperlayer()
+        })
     }
 
     func getImageFromSampleBuffer(buffer: CMSampleBuffer) -> UIImage? {
@@ -260,14 +279,18 @@ class ViewController: UIViewController {
     
     // MARK: Helper Methods
     
-    // Creates a frame with two background blurs
-    // resultsView tag - 100
     func showResultPopover(prediction: Prediction) {
         self.modalPresentationStyle = .overCurrentContext
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "resultViewController")
-        vc.view.backgroundColor = UIColor.clear
-        self.present(vc, animated: false, completion: nil)
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let nav = storyBoard.instantiateViewController(withIdentifier: "resultViewController")
+        let vc = nav.childViewControllers.first
+        nav.modalTransitionStyle = .crossDissolve
+        nav.modalPresentationStyle = .overCurrentContext
+        vc?.modalPresentationStyle = .overCurrentContext
+        vc?.modalTransitionStyle = .crossDissolve
+        self.definesPresentationContext = true
+        self.present(nav, animated: false, completion: nil)
+        
         let widthScreen = UIScreen.main.bounds.width
         let heightScreen = UIScreen.main.bounds.height
         
