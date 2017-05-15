@@ -43,6 +43,22 @@ class PredictionsTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .destructive, title: "Delete")
+        { (action, indexPath) in
+            self.tableView.beginUpdates()
+            let predictionToDelete = self.predictions[indexPath.row]
+            try! Realm().write {
+                try! Realm().delete(predictionToDelete)
+            }
+            self.predictions.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            self.tableView.endUpdates()
+        }
+        
+        return [delete]
+    }
+    
     // MARK: Actions
     
     func imageViewTapped(recognizer: UITapGestureRecognizer) {

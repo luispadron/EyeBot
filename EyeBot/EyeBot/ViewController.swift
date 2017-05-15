@@ -249,6 +249,10 @@ class ViewController: UIViewController {
     func settingsButtonWasPressed(button: UIButton) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let nav = storyBoard.instantiateViewController(withIdentifier: "predictionsNavController")
+        let vc = nav.childViewControllers.first
+        vc?.modalPresentationStyle = .overCurrentContext
+        vc?.modalTransitionStyle = .crossDissolve
+        self.definesPresentationContext = true
         self.present(nav, animated: true, completion: nil)
     }
     
