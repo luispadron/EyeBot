@@ -37,9 +37,7 @@ class PredictionsTableViewController: UITableViewController {
         let prediction = predictions[indexPath.row]
         cell.predictionImageView.image = prediction.image
         cell.predictionLabel.text = prediction.label
-        cell.predictionImageView.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(imageViewTapped))
-        cell.predictionImageView.addGestureRecognizer(tapGesture)
+    
         return cell
     }
     
@@ -59,27 +57,19 @@ class PredictionsTableViewController: UITableViewController {
         return [delete]
     }
     
-    // MARK: Actions
-    
-    func imageViewTapped(recognizer: UITapGestureRecognizer) {
-        guard let imageView = recognizer.view as? UIImageView else {
-            print("Image tapped but couldn't get image view")
-            return
-        }
-        
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let prediction = predictions[indexPath.row]
+        let cell = self.tableView.cellForRow(at: indexPath) as! PredictionTableViewCell
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let controller = storyBoard.instantiateViewController(withIdentifier: "predictionDetail") as! PredictionDetailViewController
-        controller.imageToPresent = imageView.image
-        
-        let cell = imageView.superview?.superview as! PredictionTableViewCell
-        let index = self.tableView.visibleCells.index(of: cell)
-        if let i = index {
-            controller.imageLabel = predictions[i].label
-        }
+        controller.imageToPresent = cell.predictionImageView.image
+        controller.imageLabel = prediction.label
         
         self.navigationController?.pushViewController(controller, animated: true)
     }
     
+    // MARK: Actions
+
     @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
