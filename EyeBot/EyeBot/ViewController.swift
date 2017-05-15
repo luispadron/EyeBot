@@ -163,9 +163,6 @@ class ViewController: UIViewController {
                     
                     do {
                         try device.lockForConfiguration()
-                        touchButton.frame = CGRect(x: touchPoint.location(in: self.view).x, y: touchPoint.location(in: self.view).y, width: 15, height: 15)
-                        touchButton.setImage(#imageLiteral(resourceName: "touchButton"), for: .normal)
-                        previewLayer.addSublayer(self.touchButton.layer)
                         device.focusPointOfInterest = focusPoint
                         device.focusMode = .autoFocus
                         device.exposurePointOfInterest = focusPoint
@@ -177,20 +174,6 @@ class ViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let timeWhen = DispatchTime.now() + 0.5
-        DispatchQueue.main.asyncAfter(deadline: timeWhen, execute: {
-            self.touchButton.layer.removeFromSuperlayer()
-        })
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let timeWhen = DispatchTime.now() + 0.5
-        DispatchQueue.main.asyncAfter(deadline: timeWhen, execute: {
-            self.touchButton.layer.removeFromSuperlayer()
-        })
     }
 
     func getImageFromSampleBuffer(buffer: CMSampleBuffer) -> UIImage? {
