@@ -11,7 +11,7 @@ import UIKit
 class ResultViewController: UIViewController {
     let widthScreen = UIScreen.main.bounds.width
     let heightScreen = UIScreen.main.bounds.height
-    
+    var prediction:Prediction? = nil
     
     
     var loaded : Bool = false
@@ -31,22 +31,34 @@ class ResultViewController: UIViewController {
             // Blur behind our window
             let resultsView = UIVisualEffectView(effect:
                 UIBlurEffect(style: UIBlurEffectStyle.dark))
-            resultsView.frame = CGRect(x: 0,
+            resultsView.frame = CGRect(x: 0, y: 0, width: widthScreen, height: heightScreen)
+            
+            self.view.frame = CGRect(x: 0,
                                        y: -heightScreen, width: widthScreen,
                                        height: heightScreen)
-            resultsView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            resultsView.layer.opacity = 1
-            resultsView.tag = 100
+            self.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+            self.view.layer.opacity = 1
             
-            let image = UIImage(imageLiteralResourceName: "Ethernet Cable")
-            let imageView = UIImageView(image: image)
+            let loc = (heightScreen - 190 - widthScreen) / 2
+            
+            // Image for view
+            let logo = UIImage(imageLiteralResourceName: "captureButton")
+            let logoView = UIImageView(image: logo)
+            logoView.frame = CGRect(x: widthScreen / 2 - 75 / 2, y: 25,
+                                     width: 75, height: 75)
             
             // Label to display the top prediction
-            let topPrediction = UILabel(frame: CGRect(x: 0, y: 100,
+            let topPrediction = UILabel(frame: CGRect(x: 0, y: 75 + loc,
                                                       width: self.widthScreen, height: 50))
             topPrediction.text = "..."
             topPrediction.textAlignment = NSTextAlignment.center
             topPrediction.textColor = UIColor.white
+            
+            // Image for result
+            let resultImage = UIImage(imageLiteralResourceName: "Ethernet Cable")
+            let resultImageView = UIImageView(image: resultImage)
+            resultImageView.frame = CGRect(x: 10, y: 100 + loc,
+                                     width: widthScreen - 20, height: widthScreen - 20)
             
             // Dividing bar (just for aesthetics)
             let horizontalBar = UIView(frame: CGRect(x: 0, y: heightScreen - 50,
@@ -65,19 +77,20 @@ class ResultViewController: UIViewController {
             closeButton.addTarget(self, action: #selector(resultsViewButtonClose),
                                   for: .touchUpInside)
             
-            resultsView.addSubview(imageView)
-            resultsView.addSubview(topPrediction)
-            resultsView.addSubview(horizontalBar)
-            resultsView.addSubview(closeButton)
-            
-            // Frame blur behind frame
+            // Frame blur behind frame contents
             self.view.addSubview(resultsView)
+            
+            self.view.addSubview(logoView)
+            self.view.addSubview(topPrediction)
+            self.view.addSubview(resultImageView)
+            self.view.addSubview(horizontalBar)
+            self.view.addSubview(closeButton)
             
             // Slide down results view
             UIView.animate(withDuration: 0.5, delay: 0.6, options: [],
                            animations: {
-                            resultsView.frame = CGRect(x: 0, y: 0, width: self.widthScreen,
-                                                       height: self.heightScreen)
+                            self.view.frame = CGRect(x: 0, y: 0, width: self.widthScreen,
+                                                    height: self.heightScreen)
             }, completion: nil)
             
             self.loaded = true
@@ -88,11 +101,9 @@ class ResultViewController: UIViewController {
     func resultsViewButtonClose(sender: UIButton!) {
         UIView.animate(withDuration: 0.4, delay: 0.0, options: [],
                        animations: {
-                        if let resultVC = self.view.viewWithTag(100) {
-                            resultVC.frame = CGRect(x: 0, y: -self.heightScreen,
+                            self.view.frame = CGRect(x: 0, y: -self.heightScreen,
                                                     width: self.widthScreen,
                                                     height: self.heightScreen)
-                        }
         }, completion: {(value:Bool) in self.dismiss(animated: false)})
         
         (presentingViewController as? ViewController)?.showEye()
