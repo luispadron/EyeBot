@@ -57,7 +57,7 @@ class ResultViewController: UIViewController {
             // Label to display the top prediction
             let topPrediction = UILabel(frame: CGRect(x: 10, y: 130 + loc,
                                                       width: self.widthScreen - 20, height: 30))
-            topPrediction.text = "Ethernet Cable"
+            topPrediction.text = prediction?.mostProbable.label as String?
             topPrediction.font = topPrediction.font.withSize(30)
             topPrediction.textAlignment = NSTextAlignment.center
             topPrediction.textColor = UIColor.white

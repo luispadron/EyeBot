@@ -262,6 +262,8 @@ class ViewController: UIViewController {
         let nav = storyBoard.instantiateViewController(withIdentifier: "resultViewController")
         let vc = nav.childViewControllers.first
         
+        (nav as? ResultViewController)?.prediction = prediction
+        
         nav.view.backgroundColor = UIColor.clear
         nav.modalPresentationStyle = .overCurrentContext
         vc?.modalPresentationStyle = .overCurrentContext
