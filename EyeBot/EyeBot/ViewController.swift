@@ -155,10 +155,6 @@ class ViewController: UIViewController {
             let x = touchPoint.location(in: self.view).y / screenSize.height
             let y = touchPoint.location(in: self.view).x / screenSize.width
             
-            touchButton.frame = CGRect(x: touchPoint.location(in: self.view).x, y: touchPoint.location(in: self.view).y, width: 15, height: 15)
-            touchButton.setImage(#imageLiteral(resourceName: "touchButton"), for: .normal)
-            previewLayer.addSublayer(self.touchButton.layer)
-            
             let focusPoint = CGPoint(x: x,
                                      y: y)
             
@@ -167,6 +163,9 @@ class ViewController: UIViewController {
                     
                     do {
                         try device.lockForConfiguration()
+                        touchButton.frame = CGRect(x: touchPoint.location(in: self.view).x, y: touchPoint.location(in: self.view).y, width: 15, height: 15)
+                        touchButton.setImage(#imageLiteral(resourceName: "touchButton"), for: .normal)
+                        previewLayer.addSublayer(self.touchButton.layer)
                         device.focusPointOfInterest = focusPoint
                         device.focusMode = .autoFocus
                         device.exposurePointOfInterest = focusPoint

@@ -40,9 +40,8 @@ open class EinsteinManager {
         }
     }
     
-    private lazy var activityView: UIActivityIndicatorView = {
-        let view = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
-        view.hidesWhenStopped = true
+    private lazy var activityView: ActivityView = {
+        let view = ActivityView(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
         return view
     }()
     
@@ -130,14 +129,14 @@ open class EinsteinManager {
         
         DispatchQueue.main.async {
             if !window.subviews.contains(self.activityView) {
-                self.activityView.center = window.center
                 window.addSubview(self.activityView)
+                self.activityView.center = window.center
             }
             
             if self.activityView.isAnimating {
-                self.activityView.stopAnimating()
+                self.activityView.stop()
             } else {
-                self.activityView.startAnimating()
+                self.activityView.start()
             }
         }
     }
