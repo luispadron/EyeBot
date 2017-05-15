@@ -11,8 +11,6 @@ import AVFoundation
 
 class ViewController: UIViewController {
     
-    var takenPhoto:UIImage?
-    
     let captureButton = UIButton(type: .custom)
     let settingsButton = UIButton(type: .custom)
     let flashButton = UIButton(type: .custom)
@@ -362,7 +360,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             takePhoto = false
             
             if let image = self.getImageFromSampleBuffer(buffer: sampleBuffer) {
-                takenPhoto = image
+                makePrediction(forImage: image)
             }
         }
     }
