@@ -249,6 +249,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         captureButton.center = CGPoint(x: widthScreen / 2, y: heightScreen + 38)
         captureButton.clipsToBounds = true
         captureButton.setImage(#imageLiteral(resourceName: "captureButton"), for: .normal)
+        captureButton.tag = 1
         previewLayer?.addSublayer(self.captureButton.layer)
         
         // Animate to slide into the screen
@@ -271,7 +272,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         let resultsView = UIVisualEffectView(effect:
             UIBlurEffect(style: UIBlurEffectStyle.dark))
         resultsView.frame = CGRect(x: widthScreen / 2 - widthFrame / 2,
-                                   y: heightScreen, width: widthFrame,
+                                   y: -heightFrame, width: widthFrame,
                                    height: heightFrame)
         resultsView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         resultsView.layer.opacity = 1
@@ -281,7 +282,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                                                  width: widthFrame, height: 1))
         horizontalBar.backgroundColor = UIColor.white
         horizontalBar.layer.opacity = 0.25
-        
         
         // Button to close our window
         let closeButton = UIButton(frame: CGRect(x: widthFrame / 2 - 150 / 2, y: heightFrame - 40,
@@ -311,7 +311,11 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                             resultsView.frame = CGRect(x: widthScreen / 2 - widthFrame / 2,
                                                        y: heightScreen - heightFrame,
                                                        width: widthFrame, height: heightFrame)
-                        
+                            self.captureButton.frame = CGRect(x:widthScreen / 2,
+                                                              y: heightScreen + 38,
+                                                              width: 75, height: 75)
+                            self.captureButton.center = CGPoint(x: widthScreen / 2,
+                                                                y: heightScreen + 38)
                         }, completion: nil)
     }
     
@@ -324,14 +328,24 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         let heightFrame:CGFloat = heightScreen
         
         if let viewWithTag = self.view.viewWithTag(100) {
-            UIView.animate(withDuration: 0.4, delay: 0.0, options:[],
+            UIView.animate(withDuration: 0.4, delay: 0.0, options: [],
                            animations: {
                                 // send to bottom, then remove the view.
                                 viewWithTag.frame = CGRect(x: widthScreen / 2 - widthFrame / 2,
-                                                       y: heightScreen,
-                                                       width: widthFrame, height: heightFrame)
+                                                           y: -heightFrame,
+                                                           width: widthFrame, height: heightFrame)
                             },
                            completion: {(value:Bool) in viewWithTag.removeFromSuperview()})
+            
+            UIView.animate(withDuration: 0.4, delay: 0.4, options: [],
+                           animations: {
+                                    self.captureButton.frame =
+                                        CGRect(x: widthScreen / 2,
+                                               y: heightScreen - 50,
+                                               width: 75, height: 75)
+                                    self.captureButton.center = CGPoint(x: widthScreen / 2,
+                                                                        y: heightScreen - 50)
+                            }, completion: nil)
         }
     }
 }
