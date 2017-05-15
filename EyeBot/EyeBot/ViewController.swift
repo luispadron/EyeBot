@@ -256,7 +256,7 @@ class ViewController: UIViewController {
     
     // MARK: Helper Methods
     
-    func showResultPopover(prediction: Prediction) {
+    func showResultViewController(prediction: Prediction) {
         self.modalPresentationStyle = .overCurrentContext
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let nav = storyBoard.instantiateViewController(withIdentifier: "resultViewController")
@@ -302,8 +302,8 @@ class ViewController: UIViewController {
             // Enable button again
             self.captureButton.isEnabled = true
             
-            // Show results VC
-            self.showResultPopover(prediction: pred)
+            // Show results view controller
+            self.showResultViewController(prediction: pred)
         })
 
     }
