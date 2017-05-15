@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
+class ViewController: UIViewController {
     
     var takenPhoto:UIImage?
     
@@ -130,27 +130,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 } 
             }
             else if mySettingsButtonArea.contains(touchPoint) {
-            }
-        }
-    }
-    
-    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, from connection: AVCaptureConnection!) {
-        if takePhoto {
-            takePhoto = false
-            
-            if let image = self.getImageFromSampleBuffer(buffer: sampleBuffer) {
-                takenPhoto = image
-                EinsteinManager.shared.predictImage(image,
-                                                    withModelId: "2KRSUDVHTRUGGC7AX5RAVS4LE4",
-                                                    completion:
-                { (prediction, error) in
-                    if error == nil {
-                        print(prediction?.mostProbable.label ?? "No label predicted")
-                        self.showResultPopover(prediction: prediction!)
-                    } else {
-                        print(error!.message)
-                    }
-                })
             }
         }
     }
@@ -322,8 +301,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
     // When the close button is tapped
-    func resultsViewButtonClose(sender: UIButton!)
-    {
+    func resultsViewButtonClose(sender: UIButton!) {
+
         let widthScreen = UIScreen.main.bounds.width
         let heightScreen = UIScreen.main.bounds.height
         let widthFrame:CGFloat = widthScreen
@@ -351,4 +330,42 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                             }, completion: nil)
         }
     }
+    
+    // MARK: Helper Methods
+    
+    fileprivate func makePrediction(forImage image: UIImage) {
+        EinsteinManager.shared.predictImage(image,
+                                            withModelId: "2KRSUDVHTRUGGC7AX5RAVS4LE4",
+                                            completion: handleImagePrediction(prediction:error:))
+
+    }
+    
+    fileprivate func handleImagePrediction(prediction: Prediction?, error: PredictionError?) {
+        guard let pred = prediction else {
+            if let err = error {
+                print("Error getting image prediction: \(err.message)")
+            }
+            return
+        }
+        
+        self.showResultPopover(prediction: pred)
+    }
+}
+
+// MARK: Delegation for AVCaptureVideo
+
+extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
+    
+    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!,
+                       from connection: AVCaptureConnection!) {
+        if takePhoto {
+            takePhoto = false
+            
+            if let image = self.getImageFromSampleBuffer(buffer: sampleBuffer) {
+                takenPhoto = image
+            }
+        }
+    }
+    
+    
 }
