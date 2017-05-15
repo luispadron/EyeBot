@@ -247,7 +247,7 @@ class ViewController: UIViewController {
     // MARK: Actions
     
     func settingsButtonWasPressed(button: UIButton) {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let storyBoard = UIStoryboard(name: "Predictions", bundle: nil)
         let nav = storyBoard.instantiateViewController(withIdentifier: "predictionsNavController")
         let vc = nav.childViewControllers.first
         vc?.modalPresentationStyle = .overCurrentContext
