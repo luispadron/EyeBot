@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F71b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -27,6 +28,102 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1445.5999999999999" y="-545.57721139430294"/>
+        </scene>
+        <!--Predictions-->
+        <scene sceneID="HkR-2I-1tM">
+            <objects>
+                <tableViewController storyboardIdentifier="predictionsTableViewController" title="Predictions" id="wqg-li-SaZ" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="YAo-4T-pw4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="predictionCell" id="BdZ-3U-Y31" customClass="PredictionTableViewCell" customModule="EyeBot" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="375" height="100"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BdZ-3U-Y31" id="ny5-xr-6yb">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Kt0-QY-ovh">
+                                            <rect key="frame" x="8" y="8" width="90" height="84"/>
+                                            <gestureRecognizers/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="90" id="bDX-Fh-wxQ"/>
+                                            </constraints>
+                                            <connections>
+                                                <outletCollection property="gestureRecognizers" destination="gOk-je-YBR" appends="YES" id="FGT-xP-RF3"/>
+                                            </connections>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hMQ-4J-IpT">
+                                            <rect key="frame" x="106" y="8" width="261" height="84"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="Kt0-QY-ovh" firstAttribute="leading" secondItem="ny5-xr-6yb" secondAttribute="leadingMargin" id="DgV-fy-8xK"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="hMQ-4J-IpT" secondAttribute="bottom" id="SUd-iP-eLk"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Kt0-QY-ovh" secondAttribute="bottom" id="a96-A6-Bd5"/>
+                                        <constraint firstItem="hMQ-4J-IpT" firstAttribute="leading" secondItem="Kt0-QY-ovh" secondAttribute="trailing" constant="8" id="aaN-p6-16X"/>
+                                        <constraint firstItem="Kt0-QY-ovh" firstAttribute="top" secondItem="ny5-xr-6yb" secondAttribute="topMargin" id="kMD-73-e8U"/>
+                                        <constraint firstItem="hMQ-4J-IpT" firstAttribute="trailing" secondItem="ny5-xr-6yb" secondAttribute="trailingMargin" id="riS-PU-mlg"/>
+                                        <constraint firstItem="hMQ-4J-IpT" firstAttribute="top" secondItem="ny5-xr-6yb" secondAttribute="topMargin" id="v9e-2a-eid"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="predictionImageView" destination="Kt0-QY-ovh" id="4tm-AA-rS7"/>
+                                    <outlet property="predictionLabel" destination="hMQ-4J-IpT" id="Jq4-yG-csB"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="wqg-li-SaZ" id="nJB-hx-wpu"/>
+                            <outlet property="delegate" destination="wqg-li-SaZ" id="gTG-6l-tIj"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bLe-EY-D2W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="gOk-je-YBR">
+                    <connections>
+                        <segue destination="wAI-Su-oZG" kind="presentation" id="aNv-Yw-AB3"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1446" y="144"/>
+        </scene>
+        <!--Prediction Detail View Controller-->
+        <scene sceneID="j4g-2c-j4W">
+            <objects>
+                <viewController id="wAI-Su-oZG" customClass="PredictionDetailViewController" customModule="EyeBot" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="i5A-fd-PA9"/>
+                        <viewControllerLayoutGuide type="bottom" id="2vI-Xl-tBV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8GR-Je-wpI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NBg-Sc-51w">
+                                <rect key="frame" x="16" y="20" width="343" height="647"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NBg-Sc-51w" firstAttribute="top" secondItem="i5A-fd-PA9" secondAttribute="bottom" id="2vN-FY-D2A"/>
+                            <constraint firstItem="2vI-Xl-tBV" firstAttribute="top" secondItem="NBg-Sc-51w" secondAttribute="bottom" id="4xi-81-Pwa"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="NBg-Sc-51w" secondAttribute="trailing" id="Pfn-Eg-7BW"/>
+                            <constraint firstItem="NBg-Sc-51w" firstAttribute="leading" secondItem="8GR-Je-wpI" secondAttribute="leadingMargin" id="x0K-3B-1EB"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="NBg-Sc-51w" id="EdS-4b-UHh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EN9-yi-cHd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2189.5999999999999" y="142.57871064467767"/>
         </scene>
     </scenes>
 </document>
