@@ -131,13 +131,15 @@ class ResultViewController: UIViewController {
     }
     
     func wrongButtonPressed(sender: UIButton) {
-        //Dropbox upload call goes here
+        
         
         resultsViewClose()
     }
     
     func correctButtonPressed(sender: UIButton)
     {
+        // Dropbox upload call goes here
+        
         resultsViewClose()
     }
     
