@@ -39,7 +39,7 @@ class ResultViewController: UIViewController {
             self.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             self.view.layer.opacity = 1
             
-            let loc = (heightScreen - 120 - widthScreen) / 2
+            let loc = (heightScreen - 130 - widthScreen) / 2
             
             // Image for view
             let logo = UIImage(imageLiteralResourceName: "captureButton")
@@ -131,6 +131,8 @@ class ResultViewController: UIViewController {
     }
     
     func wrongButtonPressed(sender: UIButton) {
+        //Dropbox upload call goes here
+        
         resultsViewClose()
     }
     
