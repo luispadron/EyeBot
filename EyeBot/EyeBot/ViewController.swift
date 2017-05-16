@@ -278,7 +278,7 @@ class ViewController: UIViewController {
         self.captureButton.isEnabled = false
         // Make prediction
         EinsteinManager.shared.predictImage(image,
-                                            withModelId: "DYWKGF7KFZRQMZPOAX34YAYDX4",
+                                            withModelId: "LE2PDB243CC2GGPGAAQJGDOWSU",
                                             completion:
         { (prediction, error) in
             guard let pred = prediction else {
@@ -352,6 +352,4 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             }
         }
     }
-    
-    
 }
