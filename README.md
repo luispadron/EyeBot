@@ -14,13 +14,13 @@ Features:
 
 Warning: Lots of Large images below showing off user interface.
 Launch Screen:  
-![Launch Screen](http://i.imgur.com/7IdBd3o.jpg)  
+![Launch Screen](http://i.imgur.com/S1U8nGz.jpg)  
 
 User Interface:  
-![Interface](http://i.imgur.com/0qGe9yU.jpg) 
+![Interface](http://i.imgur.com/LwoMdO4.jpg) 
 
 Scan Interface:   
-![Scan Screen](http://i.imgur.com/E8TGX4T.png)
+![Scan Screen](http://i.imgur.com/DZ8aKBX.jpg)
 
 Wrong Scan Interface:  
-![Wrong Screen](http://i.imgur.com/noEBPdK.png)
+![Wrong Screen](http://i.imgur.com/Hovltts.jpg)
