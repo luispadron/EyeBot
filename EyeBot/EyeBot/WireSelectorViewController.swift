@@ -8,7 +8,13 @@
 
 import UIKit
 
-class WireSelectorViewController: UIViewController {
+class WireSelectorViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
+{
+    @IBOutlet weak var pickerView: UIPickerView!
+    var selectionImageView = UIImageView()
+    
+    let pickerData = ["Ethernet Cable", "VGA Cable", "Blade"]
+    
     let widthScreen = UIScreen.main.bounds.width
     let heightScreen = UIScreen.main.bounds.height
     var loaded = false
@@ -50,6 +56,23 @@ class WireSelectorViewController: UIViewController {
             describingLabel.textAlignment = NSTextAlignment.center
             describingLabel.textColor = UIColor.white
             
+            // Image that is the result
+            // Image for result
+            let selectionImage = UIImage(imageLiteralResourceName:
+                pickerData[self.pickerView.selectedRow(inComponent: 0)])
+            self.selectionImageView = UIImageView(image: selectionImage)
+            self.selectionImageView.frame = CGRect(x: 80, y: 165,
+                                                   width: widthScreen - 160,
+                                                   height: widthScreen - 160)
+            
+            // picker view stuff
+            self.pickerView.frame = CGRect(x:20, y: 175 + widthScreen / 2,
+                                      width: widthScreen - 40,
+                                      height: 15 + widthScreen - heightScreen - 75)
+            self.pickerView.delegate = self
+            self.pickerView.dataSource = self
+            self.pickerView.backgroundColor = UIColor.clear
+            
             // Dividing bar (just for aesthetics)
             let horizontalBar = UIView(frame: CGRect(x: 0, y: heightScreen - 50,
                                                      width: widthScreen, height: 1))
@@ -85,6 +108,8 @@ class WireSelectorViewController: UIViewController {
             
             self.view.addSubview(logoView)
             self.view.addSubview(describingLabel)
+            self.view.addSubview(self.selectionImageView)
+            self.view.addSubview(self.pickerView)
             self.view.addSubview(horizontalBar)
             self.view.addSubview(verticalBar)
             self.view.addSubview(dontKnowButton)
@@ -106,7 +131,7 @@ class WireSelectorViewController: UIViewController {
     }
     
     func selectButtonPressed(sender: UIButton) {
-        
+        wireSelectorViewClose()
     }
     
     func wireSelectorViewClose() {
@@ -118,5 +143,51 @@ class WireSelectorViewController: UIViewController {
         }, completion: {(value:Bool) in self.dismiss(animated: false)})
         
         (presentingViewController as? ResultViewController)?.resultsViewClose()
+    }
+    
+    @available(iOS 2.0, *)
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    // The number of columns of data
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    
+    // The number of rows of data
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return self.pickerData.count
+    }
+    
+    // The data to return for the row and component (column) that's being passed in
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return self.pickerData[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        var label: UILabel
+        
+        if let view = view as? UILabel {
+            label = view
+        } else {
+            label = UILabel()
+        }
+        
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont(name: "SanFranciscoText-Light", size: 18)
+        
+        // where data is an Array of String
+        label.text = pickerData[row]
+        
+        return label
+    }
+    
+    func pickerView(_ pickerView: UIPickerView,
+                    didSelectRow row: Int,
+                    inComponent component: Int){
+        
     }
 }
