@@ -144,7 +144,7 @@ open class EinsteinManager {
     
     /// Trains a specifc data set with the specified image
     open func trainDataset(_ datasetId: String, image: UIImage, label: String) {
-        guard let imgData = UIImageJPEGRepresentation(image, 50) else {
+        guard let imgData = UIImageJPEGRepresentation(image, 0.50) else {
             fatalError("Error converting image to png representation: \(image)")
         }
         
