@@ -43,7 +43,7 @@ class WireSelectorViewController: UIViewController, UIPickerViewDelegate, UIPick
             self.view.layer.opacity = 1
             
             // Logo for at the top of the window
-            let logo = UIImage(imageLiteralResourceName: "captureButton")
+            let logo = UIImage(imageLiteralResourceName: "Eye Question")
             let logoView = UIImageView(image: logo)
             logoView.frame = CGRect(x: widthScreen / 2 - 75 / 2, y: 25,
                                     width: 75, height: 75)

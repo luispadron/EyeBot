@@ -42,7 +42,7 @@ class ResultViewController: UIViewController {
             let loc = (heightScreen - 130 - widthScreen) / 2
             
             // Logo at the top of the view
-            let logo = UIImage(imageLiteralResourceName: "captureButton")
+            let logo = UIImage(imageLiteralResourceName: "Eye Exclamation")
             let logoView = UIImageView(image: logo)
             logoView.frame = CGRect(x: widthScreen / 2 - 75 / 2, y: 25,
                                      width: 75, height: 75)
