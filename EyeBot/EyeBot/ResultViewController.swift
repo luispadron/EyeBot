@@ -41,31 +41,34 @@ class ResultViewController: UIViewController {
             
             let loc = (heightScreen - 130 - widthScreen) / 2
             
-            // Image for view
+            // Logo at the top of the view
             let logo = UIImage(imageLiteralResourceName: "captureButton")
             let logoView = UIImageView(image: logo)
             logoView.frame = CGRect(x: widthScreen / 2 - 75 / 2, y: 25,
                                      width: 75, height: 75)
             
+            // Label for user clarity
             let foundLabel = UILabel(frame: CGRect(x: 10, y: 100 + loc,
                                                    width: self.widthScreen - 20, height: 20))
+            
+            // Default: use "a" rather than "an".
             foundLabel.text = "I think I found a..."
+            
+            // If the string of the predicted image starts with a vowel, replace "a" with "an"
+            for vowel in ["a", "e", "i", "o", "u"] {
+                if (prediction?.mostProbable.label.lowercased().hasPrefix(vowel))! {
+                    foundLabel.text = "I think I found an..."
+                    break
+                }
+            }
             foundLabel.font = foundLabel.font.withSize(20)
             foundLabel.textAlignment = NSTextAlignment.center
             foundLabel.textColor = UIColor.white
             
             // Label to display the top prediction
-            let vowels: [String] = ["a", "e", "i", "o", "u"]
             let topPrediction = UILabel(frame: CGRect(x: 10, y: 130 + loc,
                                                       width: self.widthScreen - 20, height: 30))
             topPrediction.text = prediction?.mostProbable.label as String?
-            
-            for vowel in vowels {
-                if topPrediction.text!.lowercased().hasPrefix(vowel) {
-                    foundLabel.text = "I think I found an..."
-                }
-            }
-            
             topPrediction.font = topPrediction.font.withSize(30)
             topPrediction.textAlignment = NSTextAlignment.center
             topPrediction.textColor = UIColor.white
@@ -131,9 +134,15 @@ class ResultViewController: UIViewController {
     }
     
     func wrongButtonPressed(sender: UIButton) {
-        
-        
-        resultsViewClose()
+        self.modalPresentationStyle = .overCurrentContext
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let nav = storyBoard.instantiateViewController(withIdentifier: "wireSelectorViewController")
+        let vc = nav.childViewControllers.first
+        nav.view.backgroundColor = UIColor.clear
+        nav.modalPresentationStyle = .overCurrentContext
+        vc?.modalPresentationStyle = .overCurrentContext
+        self.definesPresentationContext = true
+        self.present(nav, animated: false, completion: nil)
     }
     
     func correctButtonPressed(sender: UIButton)

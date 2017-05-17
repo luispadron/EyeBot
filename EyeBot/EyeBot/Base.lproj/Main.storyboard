@@ -46,6 +46,41 @@
             </objects>
             <point key="canvasLocation" x="2405" y="-565"/>
         </scene>
+        <!--Wire Selector View Controller-->
+        <scene sceneID="zOh-ey-0bU">
+            <objects>
+                <viewController storyboardIdentifier="wireSelectorViewController" id="VQe-U8-Qfv" customClass="WireSelectorViewController" customModule="EyeBot" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="N6l-Dk-cvc"/>
+                        <viewControllerLayoutGuide type="bottom" id="21z-Mv-muK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="exh-i5-mh2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Et0-WT-Z8M">
+                                <rect key="frame" x="0.0" y="343" width="375" height="216"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="216" id="ICl-XR-e88"/>
+                                    <constraint firstAttribute="width" constant="375" id="bsh-Xe-bGz"/>
+                                </constraints>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Et0-WT-Z8M" firstAttribute="leading" secondItem="exh-i5-mh2" secondAttribute="leading" id="Zi4-YJ-nxl"/>
+                            <constraint firstAttribute="trailing" secondItem="Et0-WT-Z8M" secondAttribute="trailing" id="bEO-32-wXH"/>
+                            <constraint firstItem="Et0-WT-Z8M" firstAttribute="top" secondItem="N6l-Dk-cvc" secondAttribute="bottom" constant="323" id="gBo-br-OAN"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="pickerView" destination="Et0-WT-Z8M" id="NmY-wk-QyI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lfb-Zn-KjJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3206" y="-565"/>
+        </scene>
         <!--predictionsTableViewController-->
         <scene sceneID="AeW-UB-sRX">
             <objects>
