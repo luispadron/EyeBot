@@ -256,13 +256,14 @@ class ViewController: UIViewController {
     
     // MARK: Helper Methods
     
-    func showResultViewController(prediction: Prediction) {
+    func showResultViewController(prediction: Prediction, image: UIImage) {
         self.modalPresentationStyle = .overCurrentContext
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let nav = storyBoard.instantiateViewController(withIdentifier: "resultViewController")
         let vc = nav.childViewControllers.first
         
         (nav as? ResultViewController)?.prediction = prediction
+        (nav as? ResultViewController)?.image = image
         
         nav.view.backgroundColor = UIColor.clear
         nav.modalPresentationStyle = .overCurrentContext
@@ -288,24 +289,11 @@ class ViewController: UIViewController {
                 return
             }
             
-            // Save to realm and show popover
-            
-            if let storedPrediction = StoredPrediction(image: image,
-                                                       label: pred.mostProbable.label,
-                                                       probability: pred.mostProbable.percent) {
-                let realm = try! Realm()
-                try! realm.write {
-                    realm.create(StoredPrediction.self, value: storedPrediction, update: false)
-                }
-            } else {
-                print("Error creating stored prediction and saving to Realm....")
-            }
-            
             // Enable button again
             self.captureButton.isEnabled = true
             
             // Show results view controller
-            self.showResultViewController(prediction: pred)
+            self.showResultViewController(prediction: pred, image: image)
         })
 
     }

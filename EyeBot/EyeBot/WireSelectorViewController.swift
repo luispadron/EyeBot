@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class WireSelectorViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource
 {
@@ -130,6 +131,8 @@ class WireSelectorViewController: UIViewController, UIPickerViewDelegate, UIPick
     }
     
     func selectButtonPressed(sender: UIButton) {
+        (presentingViewController as? ResultViewController)?.addToRealm(label: pickerData[pickerView.selectedRow(inComponent: 0)])
+        
         wireSelectorViewClose()
     }
     

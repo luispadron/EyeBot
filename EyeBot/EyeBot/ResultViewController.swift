@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ResultViewController: UIViewController {
     let widthScreen = UIScreen.main.bounds.width
     let heightScreen = UIScreen.main.bounds.height
     var prediction:Prediction? = nil
     
+    var image:UIImage? = nil
     
     var loaded : Bool = false
     
@@ -148,6 +150,8 @@ class ResultViewController: UIViewController {
     func correctButtonPressed(sender: UIButton)
     {
         // Dropbox upload call goes here
+        addToRealm(label: (self.prediction?.mostProbable.label)!)
+        
         
         resultsViewClose()
     }
@@ -162,6 +166,21 @@ class ResultViewController: UIViewController {
         }, completion: {(value:Bool) in self.dismiss(animated: false)})
         
         (presentingViewController as? ViewController)?.showEye()
+    }
+    
+    func addToRealm(label: String) {
+        // Save to realm and show popover
+        
+        if let storedPrediction = StoredPrediction(image: self.image!,
+                                                   label: label,
+                                                   probability: (self.prediction?.mostProbable.percent)!) {
+            let realm = try! Realm()
+            try! realm.write {
+                realm.create(StoredPrediction.self, value: storedPrediction, update: false)
+            }
+        } else {
+            print("Error creating stored prediction and saving to Realm....")
+        }
     }
     
 }
