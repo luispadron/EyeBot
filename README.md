@@ -12,7 +12,6 @@ Features:
 * Torch for dark-room settings
 * Completely Open-Source
 
-Warning: Lots of Large images below showing off user interface.
 Launch Screen:  
 ![Launch Screen](http://i.imgur.com/S1U8nGz.jpg)  
 
