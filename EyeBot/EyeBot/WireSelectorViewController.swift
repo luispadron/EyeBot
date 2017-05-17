@@ -51,24 +51,23 @@ class WireSelectorViewController: UIViewController, UIPickerViewDelegate, UIPick
             // Label for user clarity
             let describingLabel = UILabel(frame: CGRect(x: 10, y: 125,
                                                    width: self.widthScreen - 20, height: 30))
-            describingLabel.text = "What item is this?"
+            describingLabel.text = "What item did you scan?"
             describingLabel.font = describingLabel.font.withSize(30)
             describingLabel.textAlignment = NSTextAlignment.center
             describingLabel.textColor = UIColor.white
             
-            // Image that is the result
             // Image for result
             let selectionImage = UIImage(imageLiteralResourceName:
                 pickerData[self.pickerView.selectedRow(inComponent: 0)])
             self.selectionImageView = UIImageView(image: selectionImage)
-            self.selectionImageView.frame = CGRect(x: 80, y: 165,
+            self.selectionImageView.frame = CGRect(x: 80, y: 185,
                                                    width: widthScreen - 160,
                                                    height: widthScreen - 160)
             
             // picker view stuff
-            self.pickerView.frame = CGRect(x:20, y: 175 + widthScreen / 2,
-                                      width: widthScreen - 40,
-                                      height: 15 + widthScreen - heightScreen - 75)
+            self.pickerView.frame = CGRect(x:20, y: 45 + widthScreen,
+                                           width: widthScreen - 40,
+                                           height: heightScreen - 120 - widthScreen)
             self.pickerView.delegate = self
             self.pickerView.dataSource = self
             self.pickerView.backgroundColor = UIColor.clear
@@ -188,6 +187,7 @@ class WireSelectorViewController: UIViewController, UIPickerViewDelegate, UIPick
     func pickerView(_ pickerView: UIPickerView,
                     didSelectRow row: Int,
                     inComponent component: Int){
-        
+        let selectionImage = UIImage(imageLiteralResourceName: self.pickerData[row])
+        self.selectionImageView.image = selectionImage
     }
 }
