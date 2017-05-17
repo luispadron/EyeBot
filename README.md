@@ -12,14 +12,19 @@ Features:
 * Torch for dark-room settings
 * Completely Open-Source
 
+
+User Interface Pictures:
+<details>
+
 Launch Screen:  
 ![Launch Screen](http://i.imgur.com/S1U8nGz.jpg)  
 
 User Interface:  
-![Interface](http://i.imgur.com/LwoMdO4.jpg) 
+![Interface](http://i.imgur.com/5kqGRU7.png) 
 
-Scan Interface:   
-![Scan Screen](http://i.imgur.com/DZ8aKBX.jpg)
+Scan Result Interface:   
+![Scan Screen](http://i.imgur.com/wMjVNIB.png)
 
-Wrong Scan Interface:  
-![Wrong Screen](http://i.imgur.com/Hovltts.jpg)
+Wrong Scan Result Interface:  
+![Wrong Screen](http://i.imgur.com/fSUNo7S.png)
+</details>
