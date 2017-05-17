@@ -127,11 +127,13 @@ class WireSelectorViewController: UIViewController, UIPickerViewDelegate, UIPick
     }
     
     func dontKnowButtonPressed(sender: UIButton) {
+        (presentingViewController as? ResultViewController)?.updateTrainingAndRealm(label: "Unknown")
+        
         wireSelectorViewClose()
     }
     
     func selectButtonPressed(sender: UIButton) {
-        (presentingViewController as? ResultViewController)?.addToRealm(label: pickerData[pickerView.selectedRow(inComponent: 0)])
+        (presentingViewController as? ResultViewController)?.updateTrainingAndRealm(label: pickerData[pickerView.selectedRow(inComponent: 0)])
         
         wireSelectorViewClose()
     }

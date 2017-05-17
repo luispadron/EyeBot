@@ -150,7 +150,7 @@ class ResultViewController: UIViewController {
     func correctButtonPressed(sender: UIButton)
     {
         // Dropbox upload call goes here
-        addToRealm(label: (self.prediction?.mostProbable.label)!)
+        updateTrainingAndRealm(label: (self.prediction?.mostProbable.label)!)
         
         
         resultsViewClose()
@@ -168,15 +168,18 @@ class ResultViewController: UIViewController {
         (presentingViewController as? ViewController)?.showEye()
     }
     
-    func addToRealm(label: String) {
-        // Save to realm and show popover
-        
+    func updateTrainingAndRealm(label: String) {
         if let storedPrediction = StoredPrediction(image: self.image!,
                                                    label: label,
                                                    probability: (self.prediction?.mostProbable.percent)!) {
             let realm = try! Realm()
             try! realm.write {
                 realm.create(StoredPrediction.self, value: storedPrediction, update: false)
+            }
+            
+            if label != "Unknown" {
+                // Save to realm and show popover
+                EinsteinManager.shared.trainDataset("1002973", image: (storedPrediction.image)!, label: label)
             }
         } else {
             print("Error creating stored prediction and saving to Realm....")
