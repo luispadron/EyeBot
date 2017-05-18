@@ -12,14 +12,14 @@ Features:
 * Torch for dark-room settings
 * Completely Open-Source
 
-
-User Interface Pictures:
 <details>
+<summary>User Interface Pictures</summary>
 
 Launch Screen:  
 ![Launch Screen](http://i.imgur.com/S1U8nGz.jpg)  
 
 User Interface:  
+*Note: the text is photoshopped labels for the buttons; they are not in the app itself.*  
 ![Interface](http://i.imgur.com/5kqGRU7.png) 
 
 Scan Result Interface:   
