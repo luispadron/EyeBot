@@ -28,3 +28,14 @@ Scan Result Interface:
 Wrong Scan Result Interface:  
 ![Wrong Screen](http://i.imgur.com/fSUNo7S.png)
 </details>
+
+## Building
+
+Make sure to have [CocoaPods](https://cocoapods.org) installed 
+To build and run the application from the `EyeBot` directory run
+
+```bash
+pod install
+
+```
+Then open the `.xcworkspace` file.
