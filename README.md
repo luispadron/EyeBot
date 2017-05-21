@@ -29,6 +29,15 @@ Wrong Scan Result Interface:
 ![Wrong Screen](http://i.imgur.com/fSUNo7S.png)
 </details>
 
+## Contributors
+
+[Luis Padron](https://github.com/luispadron)
+
+[Chris Perkins](https://github.com/Chris-Perkins)
+
+[Chris Sansavera](https://github.com/sansa00c)
+
+
 ## Building
 
 Make sure to have [CocoaPods](https://cocoapods.org) installed 
