@@ -40,7 +40,7 @@ Wrong Scan Result Interface:
 
 ## Building
 
-Make sure to have [CocoaPods](https://cocoapods.org) installed 
+Make sure to have [CocoaPods](https://cocoapods.org) installed  
 To build and run the application from the `EyeBot` directory run
 
 ```bash
