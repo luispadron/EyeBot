@@ -48,3 +48,7 @@ pod install
 
 ```
 Then open the `.xcworkspace` file.
+
+Change the token variable found in "AppDelegate.swift" on line 19 to your [Einstein Vision Token](https://api.metamind.io/token)  
+*Note: Our token is expired. We left it in on purpose. :)*  
+On like 282 of "ViewController.swift", change the model to the model you trained.
